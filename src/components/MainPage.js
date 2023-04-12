@@ -43,7 +43,7 @@ const MainPage = () => {
             <div className="container text-center">
                 <div className="row justify-content-center">
                     <div className="col-md-6 col-lg-8 mb-3">
-                        <h1 class="nagl1"> Witaj w Poradni Zdrowego Trybu Życia!</h1>
+                        <h1 class="nagl1"> Witaj w Poradni Zdrowego Trybu Życia!!!</h1>
                         <h2>Chcemy pomóc Ci zadbać o swoje zdrowie i dobre samopoczucie. W naszej poradni oferujemy szeroki zakres usług, które pomogą Ci w osiągnięciu Twoich celów.</h2>
                         <h3>Nieobecny traci</h3>
                     </div>
