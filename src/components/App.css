@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,400;0,500;0,800;1,100&display=swap');
+.nagl1{
+  padding-top: 70px;
+}
+body {
+    background-color: black;
+    font-family: 'Alegreya Sans', sans-serif;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+    font-size: 110%;
+}
+    .navbar-dark .navbar-nav .nav-link:hover {
+        box-sizing: border-box;
+        color: mediumaquamarine;
+        text-decoration: underline;
+        text-decoration-color: mediumaquamarine;
+    }
+.btn-outline-dark{
+    color: white;
+    border-color: white;
+}
+.btn-outline-dark:hover {
+    color: white;
+    background-color: mediumaquamarine;
+    border-color: white;
+}
+#szukaj {
+    position: fixed;
+    right: 45px;
+}
+    #hero {
+    width: 100%;
+    height: 100vh;
+    background: url(https://images.pexels.com/photos/163351/girl-boxer-ring-boxing-pear-163351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+    background-size: cover;
+    position: relative;
+}
+#hero:before
+{
+    content: "";
+    background: rgba(0,0,0,0.6);
+    position: absolute;
+    bottom:0;
+    top:0;
+}
+#hero .container{
+    position: relative;
+    padding-top: 75px;
+}
+#hero h1
+{
+    margin: 0;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 64px;
+    color: #fff;
+  
+}
+#hero h2 {
+    margin: 10px 0 0 0;
+    font-size: 19px;
+    color: black;
+    text-shadow: 2px 3px 6px #fff;
+   
+    }
+#hero h3 {
+    margin: 10px 0 0 0;
+    font-size: 25px;
+    color: white;
+    text-shadow: 5px 5px 4px aqua;
+
+    }
+#hero .icon-box h3{
+    margin-top: 10px;
+    font-size: 20px;
+    line-height: 26px;
+}
+#hero .icon-box h3 a{
+    color: aqua;
+
+}#hero .icon-box h3 a:hover {
+    color: #fff2cc;
+    cursor: pointer;
+    }
+
+.icon-box {
+    padding: 30px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    height: 100%;
+    text-align: center;
+    border-radius: 20px;
+}
+.icon-box:hover {
+    border-color: #15f4ee;
+
+    }
