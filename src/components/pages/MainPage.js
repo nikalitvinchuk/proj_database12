@@ -1,49 +1,11 @@
 import React from 'react';
-
 const MainPage = () => {
-    return (  
-        <>
-        <header id="header" className="fixed-top">
-            <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor:'#000'}}>
-                <div className="container">
-                    <a className="navbar-brand" href="poradnia_ZTZ.html"><img src="m4.png" style={{width:'55%'}} /></a>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-    
-    
-                    <div className="collapse navbar-collapse" id="navContent">
-                        <ul className="navbar-nav mr-auto mb-3 mb-lg 0">
-                            <li className="nav-item">
-                                <a href="#" className="nav-link"><i className="fa fa-home"></i> Strona główna</a>
-                            </li>
-    
-                            <li className="nav-item">
-                                <a href="#" className="nav-link"><i className="fa fa-users" aria-hidden="true"></i> O nas</a>
-                            </li>
-    
-                            <li className="nav-item">
-                                <a href="#" className="nav-link"><i className="fa fa-envelope-open-o" aria-hidden="true"></i> Kontakt</a>
-                            </li>
-                            <li className="nav-item">
-                                <a href="#" className="nav-link"><i className="fa fa-heart-o" aria-hidden="true"></i> Moje konto</a>
-                            </li>
-                        </ul>
-                        <form action="#" className="d-flex" id="szukaj">
-                            <input type="search" placeholder="Search" className="form-control mr-2" />
-                            <button type="submit" className="btn btn-outline-dark">Search</button>
-                        </form>
-                    </div>
-    
-                </div>
-            </nav>
-        </header>
-    
+    return ( 
         <section id="hero" className="d-flex.align-items-center justify-content-center">
             <div className="container text-center">
                 <div className="row justify-content-center">
                     <div className="col-md-6 col-lg-8 mb-3">
-                        <h1 class="nagl1"> Witaj w Poradni Zdrowego Trybu Życia!!!</h1>
+                        <h1 className="nagl1"> Witaj w Poradni Zdrowego Trybu Życia!!!</h1>
                         <h2>Chcemy pomóc Ci zadbać o swoje zdrowie i dobre samopoczucie. W naszej poradni oferujemy szeroki zakres usług, które pomogą Ci w osiągnięciu Twoich celów.</h2>
                         <h3>Nieobecny traci</h3>
                     </div>
@@ -59,7 +21,7 @@ const MainPage = () => {
                                 <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
                             </svg>
                             
-                            <h3><a href="narzedzia.html">Narzędzia</a></h3>
+                            <h3>Narzędzia</h3>
                         </div>
                     </div>
     
@@ -112,7 +74,6 @@ const MainPage = () => {
     
             </div>
         </section>
-        </>
     );
 }
  
