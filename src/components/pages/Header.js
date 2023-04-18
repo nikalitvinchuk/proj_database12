@@ -29,9 +29,8 @@ const Header = () => {
                                 <NavLink to="account" className="nav-link"><i className="fa fa-heart-o" aria-hidden="true"></i> Moje konto</NavLink>
                             </li>
                         </ul>
-                        <form action="#" className="d-flex" id="szukaj">
-                            <input type="search" placeholder="Search" className="form-control mr-2" />
-                            <button type="submit" className="btn btn-outline-dark">Search</button>
+                        <form action="#" className="d-flex" id="wyloguj">
+                            <button type="submit" className="btn-outline-dark">Wyloguj</button>
                         </form>
                     </div>
     

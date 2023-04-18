@@ -21,15 +21,16 @@ body {
   border-bottom: 1px solid aqua;
 }
 .btn-outline-dark {
-  color: white;
+  color: black;
   border-color: white;
+  padding: 10px;
+  border-radius: 50px;
+  width: 100px;
 }
 .btn-outline-dark:hover {
-  color: white;
-  background-color: mediumaquamarine;
-  border-color: white;
+  color: red;
 }
-#szukaj {
+#wyloguj {
   position: fixed;
   right: 45px;
 }
@@ -75,10 +76,10 @@ body {
   font-size: 20px;
   line-height: 26px;
 }
-#hero .icon-box h3 a {
+#hero .icon-box h3 {
   color: aqua;
 }
-#hero .icon-box h3 a:hover {
+#hero .icon-box h3:hover {
   color: #fff2cc;
   cursor: pointer;
 }
@@ -106,7 +107,7 @@ body {
   padding: 0;
   font-size: 18px;
 }
-.author
+.about_author
 {
     color: #fff2cc;
     font-size: 20px;
@@ -118,3 +119,92 @@ body {
     color: white;
     font-weight: bold;
 }
+
+.main_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: url(1.jpg)no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.form-box {
+    position: relative;
+    width: 400px;
+    height: 480px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+}
+
+.inputbox {
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border-bottom: 2px solid #fff;
+}
+
+    .inputbox label {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 1em;
+        pointer-events: none;
+        transition: .5s;
+    }
+
+input:focus ~ label,
+input:valid ~ label {
+    top: -5px;
+}
+
+.inputbox input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding: 0 35px 0 5px;
+    color: #fff;
+}
+
+button {
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+}
+textarea 
+{
+    width: 100%;
+    color: black;
+    min-height: 80px;
+    max-height: 80px;
+    border-radius: 5px;
+}
+ textarea:focus
+{
+ border: 2px solid violet;
+}
+

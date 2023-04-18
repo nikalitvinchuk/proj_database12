@@ -4,6 +4,7 @@ import MainPage from './MainPage';
 import About from './About';
 import Contact from './Contact';
 import Account from './Account';
+import Narzedzia from "./Narzedzia";
 
 const Hero = () => {
     return ( 
@@ -12,6 +13,7 @@ const Hero = () => {
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact/>} />
             <Route path="account" element={<Account/>} />
+            <Route path="narzedzia" element={<Narzedzia/>} />
         </Routes>
     );
 }

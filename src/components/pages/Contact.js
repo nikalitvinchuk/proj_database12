@@ -1,22 +1,28 @@
 import React from "react";
 const Contact = () => {
   return (
-    <section
-      id="hero"
-      className="d-flex.align-items-center justify-content-center"
-    >
-      <div className="container text-center">
-        <div className="row justify-content-center">
-          <div className="col-md-6 col-lg-8 mb-3">
-            <h1 className="nagl1"> SKONTAKTUJ SIĘ Z NAMI</h1>
-            <h3>Wypełnij formularz</h3>
-          </div>
+    <section className="main_form">
+        <div className="form-box">
+            <div className="form-value">
+                <form id="login-form">
+                    <h2>Wypełnij formularz</h2>
+                    <div className="inputbox">
+                        <input type="text" id="title_input" required/>
+                        <label>Tytuł</label>
+                    </div>
+                    <div className="inputbox">
+                        <input type="password" id="password-input" required/>
+                        <label>Email</label>
+                    </div>
+                    <div className="inputbox">
+                      <textarea placeholder="Treść zgłoszenia"></textarea>
+                    </div>
+                   
+                    <button type="button">Wyślij</button>.
+                    
+                </form>
+            </div>
         </div>
-
-        <div className="row mt-5 justify-content-center">
-          
-        </div>
-      </div>
     </section>
   );
 };
