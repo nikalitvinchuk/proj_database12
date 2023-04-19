@@ -74,6 +74,8 @@ body {
 .result {
   margin-top: 1.5rem;
 }
-
+select{
+  width: 200px;
+}
 
 
