@@ -54,7 +54,8 @@ export default function App() {
   
 
   return (
-    <div className="container">
+    <div className="bmi_main">
+    <div className="container_bmi">
       <h1>BODY MASS INDEX (BMI) Kalkulator</h1>
 
       <div className="form-item">
@@ -82,5 +83,6 @@ export default function App() {
       {bmi && <div className="result">Twoje BMI wynosi: {bmi}. {bmimessage}</div>}
       
     </div>
+  </div>
   );
 }

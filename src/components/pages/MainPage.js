@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Switch} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 const MainPage = () => {
     return ( 
         <section id="hero" className="d-flex.align-items-center justify-content-center">
