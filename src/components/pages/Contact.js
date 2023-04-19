@@ -11,7 +11,7 @@ const Contact = () => {
                         <label>Tytuł</label>
                     </div>
                     <div className="inputbox">
-                        <input type="password" id="password-input" required/>
+                        <input type="text" id="password-input" required/>
                         <label>Email</label>
                     </div>
                     <div className="inputbox">

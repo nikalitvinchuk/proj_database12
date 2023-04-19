@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/BMI.css";
-export default function App() {
+export default function BMIPage() {
 
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");

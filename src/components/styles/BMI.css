@@ -10,13 +10,13 @@
 body {
   height: 100vh;
   place-items: center;
-  background: linear-gradient(to left, #9e0641, #174e36, #000000);
+  background: linear-gradient(to left, #bb0048, #175339, #000000);
 }
 .bmi_main
 {
   display: flex;
   justify-content: center;
-  margin-top: 200px;
+  margin-top: 150px;
 }
 .container_bmi {
   width: 500px;

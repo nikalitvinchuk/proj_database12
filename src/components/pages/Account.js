@@ -1,23 +1,35 @@
 import React from 'react';
 const Account = () => {
     return ( 
-        <section
-        id="hero"
-        className="d-flex.align-items-center justify-content-center"
-      >
-        <div className="container text-center">
-          <div className="row justify-content-center">
-            <div className="col-md-6 col-lg-8 mb-3">
-              <h1 className="nagl1"> Twoje konto</h1>
-              <h3>Wypełnij formularz</h3>
-            </div>
+      <section className="main_form">
+      <div className="form-box">
+          <div className="form-value">
+              <form id="login-form">
+                  <h2>Twoje Konto</h2>
+                  <div className="inputbox_acc">
+                      <label>Imię: </label>
+                  </div>
+                  <div className="inputbox_acc">
+                      <label>Nazwisko: </label>
+                  </div>
+                  <div className="inputbox_acc">
+                      <label>Email:</label>
+                  </div>   
+                  <div className="inputbox_acc">
+                      <label>Hasło:</label>
+                  </div>   
+                  <div className="inputbox_acc">
+                      <label>Zainteresowania:</label>
+                  </div>
+                  <div className="inputbox_acc">
+                      <label>Typ konta:</label>
+                  </div>   
+                  <button type="button">Zmień</button>.
+                  
+              </form>
           </div>
-  
-          <div className="row mt-5 justify-content-center">
-            
-          </div>
-        </div>
-      </section>
+      </div>
+  </section>
     );
 }
  

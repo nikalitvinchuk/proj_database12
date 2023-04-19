@@ -1,12 +1,12 @@
 import React from 'react';
 import Logo from '../logo.png';
-import { NavLink, Switch} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 const Header = () => {
     return ( 
         <header id="header" className="fixed-top">
             <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor:'#000'}}>
                 <div className="container">
-                <NavLink to="/" exact="True" className="navbar-brand" href="poradnia_ZTZ.html"><img src={Logo} style={{width:'55%'}} /></NavLink>
+                <NavLink to="/" exact="True" className="navbar-brand" href="poradnia_ZTZ.html"><img src={Logo} alt="" style={{width:'55%'}} /></NavLink>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
