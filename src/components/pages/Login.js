@@ -2,9 +2,9 @@ import React from "react";
 import "../styles/Login.css";
 const Login = () => {
   return (
-    <section>
-      <div className="form-box">
-        <div className="form-value">
+    <section className="section-log">
+      <div className="form-box-log">
+        <div className="form-value-log">
           <form id="login-form">
             <h2>Login</h2>
             <div className="inputbox">

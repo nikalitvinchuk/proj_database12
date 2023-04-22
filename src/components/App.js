@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 //import Header from './pages/Header';
 //import Hero from './pages/Hero';
-//import StartPage from './pages/StartPage';
+import StartPage from './pages/StartPage';
 import Login from './pages/Login';
 import "bootstrap/dist/css/bootstrap.min.css";
 class App extends Component {
@@ -11,7 +11,7 @@ class App extends Component {
     return ( 
       <Router>
         <div>
-            {<Login/>}              
+            {<StartPage/>}              
         </div>
       </Router>
 
