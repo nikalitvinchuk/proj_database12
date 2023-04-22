@@ -46,8 +46,8 @@ export default function BMIPage() {
   }
   
  const reset = () => {
-      setHeight(0);
-      setWeight(0);
+      setHeight(" ");
+      setWeight(" ");
       setBmi("");
       setBmiMesage("");
   };

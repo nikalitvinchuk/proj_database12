@@ -13,6 +13,7 @@ class App extends Component {
             {<Hero/>}                
         </div>
       </Router>
+
   );
   }
 }

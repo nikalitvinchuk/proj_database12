@@ -14,7 +14,7 @@ const About = () => {
             i przyjemny sposób. W dzisiejszych czasach wiele czynników może negatywnie wpłynąć na nasze zdrowie, a coraz mniej czasu 
             pozostaje na troszczenie się o siebie. Nasza strona ma za zadanie ułatwić to zadanie poprzez dostarczenie łatwo dostępnych i 
             przystępnych informacji dotyczących zdrowego stylu życia, aby każdy mógł łatwo wprowadzać pozytywne zmiany w swoim codziennym życiu.</p>
-            <p class="about_author">Autorzy:  Nika Lytvynchuk, Michał Mordarski</p>
+            <p className="about_author">Autorzy:  Nika Lytvynchuk, Michał Mordarski</p>
             <p className="Rodo"> Administratorem Twoich danych osobowych jest SImpleZTZ z siedzibą przy ul. Ludwika Zamenhofa 1a, 33-300 Nowy Sącz z którą można skontaktować się pisząc na adres e-mail: simplezts@gmail.com </p>
           </div>
         </div>

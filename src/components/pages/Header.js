@@ -30,7 +30,7 @@ const Header = () => {
                             </li>
                         </ul>
                         <form action="#" className="d-flex" id="wyloguj">
-                            <button type="submit" className="btn-outline-dark">Wyloguj</button>
+                            <button type="button" className="btn-outline-dark">Wyloguj</button>
                         </form>
                     </div>
     
