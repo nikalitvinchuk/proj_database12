@@ -60,7 +60,7 @@ app.post('/login', (req, res) => {
 
         res.json({ success: true, message: 'Successful login' }); // Jeœli znaleziono u¿ytkownika, wys³anie odpowiedzi z polem success ustawionym na true i polem message z informacj¹ o pomyœlnym logowaniu
     });
-
+});
 
 // uruchomienie serwera na porcie 3000
 app.listen(3000, () => {
