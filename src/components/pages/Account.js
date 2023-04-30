@@ -25,7 +25,7 @@ const Account = () => {
                                 <option>Rady na codzień</option>
                             </select> <br />
                         </div>
-                        <button type="button">Zmień</button>.
+                        <button type="button">Zmień</button>
                     </form>
                 </div>
             </div>

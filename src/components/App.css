@@ -256,3 +256,34 @@ textarea {
         width: 210px;
         padding: 2px;
     }
+
+
+
+
+.exercise_main select {
+    color: rgb(153, 65, 59);
+    width: 200px;
+}
+
+.exercise_main button {
+    color: rgb(153, 65, 59);
+    width: 200px;
+}
+
+.trening_list {
+    padding-top: 20px;
+    width: 550px;
+    color: white;
+    text-align: center;
+}
+
+    .trening_list td {
+        width: 300px;
+        color: white;
+        text-align: center;
+        border: 2px white solid;
+    }
+
+.center-table {
+    margin: 0 auto;
+}
