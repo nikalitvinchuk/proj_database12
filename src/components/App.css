@@ -311,3 +311,15 @@ textarea {
     font-size: 15px;
     letter-spacing: 0.2em;
 }
+
+.button_tips {
+    margin-top: 30px;
+    padding: 20px;
+    width: 450px;
+    height: 100px;
+    background-color: rgba(49, 88, 65, 0.534);
+    color: white;
+    font-size: 25px;
+    letter-spacing: 0.3em;
+    border-radius: 20px;
+}
