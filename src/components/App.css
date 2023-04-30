@@ -300,3 +300,14 @@ textarea {
     height: 35px;
     width: 270px;
 }
+
+.topic_blog button {
+    background-color: rgba(49, 88, 65, 0.534);
+    margin: 5px;
+    border-radius: 20px;
+    color: white;
+    width: 200px;
+    height: 100px;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+}
