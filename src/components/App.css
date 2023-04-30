@@ -287,3 +287,16 @@ textarea {
 .center-table {
     margin: 0 auto;
 }
+
+
+.location_main button {
+    color: rgb(153, 65, 59);
+    width: 270px;
+}
+
+.location_main select {
+    margin-top: 10px;
+    color: rgb(153, 65, 59);
+    height: 35px;
+    width: 270px;
+}

@@ -10,7 +10,7 @@ const ExerciseBase = () => {
                     <div className="col-md-6 col-lg-8 mb-3">
                         <h1 className="nagl1"> Zestawy ćwiczeń</h1>
                         <h3>Wybierz poziom zaawansowania</h3>
-                        <div class="exercise_main">
+                        <div className="exercise_main">
                             <br />
                             <select>
                                 <option>Początkowy</option>
@@ -18,7 +18,7 @@ const ExerciseBase = () => {
                                 <option>Zaawansowany</option>
                             </select> <br />
                             <button>Wyświetl</button>
-                            <div class="trening_list center-table">
+                            <div className="trening_list center-table">
                                 <table>
                                     <tr>
                                         <td>Nr</td>
