@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../logo.png';
-import { NavLink} from "react-router-dom";
-const Header = () => {
+import { NavLink } from "react-router-dom";
+const Header = ({ isAdmin }) => {
     return ( 
         <header id="header" className="fixed-top">
             <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor:'#000'}}>
@@ -28,6 +28,16 @@ const Header = () => {
                             <li className="nav-item">
                                 <NavLink to="account" className="nav-link"><i className="fa fa-heart-o" aria-hidden="true"></i> Moje konto</NavLink>
                             </li>
+                            {isAdmin ? (
+                                <li className="nav-item">
+                                    <NavLink to="admin" className="nav-link">
+                                        <i className="fa fa-heart-o" aria-hidden="true"></i> Bazy
+                                        danych
+                                    </NavLink>
+                                </li>
+                            ) : (
+                                ""
+                            )};
                         </ul>
                         <form action="#" className="d-flex" id="wyloguj">
                             <button type="button" className="btn-outline-dark">Wyloguj</button>
