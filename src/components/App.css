@@ -346,8 +346,6 @@ textarea {
     padding: 5px;
 }
 
-
-
 .post {
     border: 1px solid #ccc;
     padding: 10px;
@@ -368,4 +366,51 @@ textarea {
 .post_content {
     font-size: 16px;
     color: white;
+}
+
+.post_author {
+    color: #fff2cc;
+}
+
+.post_input {
+    color: aqua;
+    background-color: black;
+    margin: 5px;
+    border: aqua 2px solid;
+    width: 400px;
+    height: 50px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+    .post_input:hover {
+        cursor: pointer;
+    }
+
+.post_buttn {
+    background-color: rgba(49, 88, 65, 0.534);
+    margin: 5px;
+    border: aqua 2px solid;
+    width: 400px;
+    height: 60px;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+}
+
+    .post_buttn:hover {
+        background-color: aqua;
+        color: black;
+        border-color: aqua;
+    }
+
+.post_textarea {
+    color: aqua;
+    background-color: black;
+    margin: 5px;
+    border: aqua 2px solid;
+    width: 400px;
+    min-height: 200px;
+    text-align: center;
+    border-radius: 10px;
 }
