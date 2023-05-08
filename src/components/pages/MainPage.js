@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Header from './Header';
 import "../styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+ 
 const MainPage = () => {
     return ( 
         <div>
