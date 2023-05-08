@@ -1,5 +1,5 @@
 import React from 'react';
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import MainPage from './MainPage';
 import About from './About';
 import Contact from './Contact';
@@ -12,23 +12,26 @@ import ExerciseBase from "./ExerciseBase";
 import LocationBase from "./LocationBase";
 import Useful from "./Useful";
 import Blog from "./Blog";
-
+import Registration from "./Registration";
+import BaseList from "../admin_pages/BaseList";
 
 const Hero = () => {
-    return ( 
+    return (
         <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact/>} />
-            <Route path="/account" element={<Account/>} />
-            <Route path="/narzedzia" element={<Narzedzia/>} />
-            <Route path="/narzedzia/bmi" element={<BMIPage/>} />
-            <Route path="/narzedzia/bmr" element={<BMRPage/>} />
-            <Route path="/narzedzia/water" element={<WaterPage/>} />
-            <Route path="/exerciseBase" element={<ExerciseBase/>}/>
-            <Route path="/locationBase" element={<LocationBase/>}/>
-            <Route path="/blog" element={<Blog/>}/>
-            <Route path="/useful" element={<Useful/>}/>
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="account" element={<Account />} />
+            <Route path="narzedzia" element={<Narzedzia />} />
+            <Route path="narzedzia/bmi" element={<BMIPage />} />
+            <Route path="narzedzia/bmr" element={<BMRPage />} />
+            <Route path="narzedzia/water" element={<WaterPage />} />
+            <Route path="/exerciseBase" element={<ExerciseBase />} />
+            <Route path="/locationBase" element={<LocationBase />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/useful" element={<Useful />} />
+            <Route path="registration" element={<Registration />} />
+            <Route path="admin" element={<BaseList />} />
         </Routes>
     );
 }

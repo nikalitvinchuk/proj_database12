@@ -1,7 +1,8 @@
+import React from "react";
 import React from 'react';
 import Header from './Header';
 const Account = () => {
-    return ( 
+    return (
         <div>
             <Header />   
             <section className="main_form">
@@ -34,6 +35,9 @@ const Account = () => {
             </section>
         </div>
     );
+};
+
+export default Account;
 };
  
 export default Account;

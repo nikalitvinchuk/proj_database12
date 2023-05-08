@@ -1,217 +1,416 @@
 @import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,400;0,500;0,800;1,100&display=swap");
+
 .nagl1 {
-  padding-top: 70px;
-}
-body {
-  background-color: black;
-  font-family: "Alegreya Sans", sans-serif;
-}
-.navbar-dark .navbar-nav .nav-link {
-  color: white;
-  font-size: 110%;
-}
-.navbar-dark .navbar-nav .nav-link:hover {
-  box-sizing: border-box;
-  color: aqua;
-  transform: scale(1.1);
-}
-.navbar-dark .navbar-nav .nav-link.active {
-  color: aqua;
-  transform: scale(1);
-  border-bottom: 1px solid aqua;
-}
-.btn-outline-dark {
-  color: black;
-  border-color: white;
-  padding: 10px;
-  border-radius: 50px;
-  width: 100px;
-}
-.btn-outline-dark:hover {
-  color: red;
-}
-#wyloguj {
-  position: fixed;
-  right: 45px;
-}
-#hero {
-  width: 100%;
-  height: 100vh;
-  background: url(https://images.pexels.com/photos/163351/girl-boxer-ring-boxing-pear-163351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)
-    no-repeat;
-  background-size: cover;
-  position: relative;
-}
-#hero:before {
-  content: "";
-  background: rgba(0, 0, 0, 0.6);
-  position: absolute;
-  bottom: 0;
-  top: 0;
-}
-#hero .container {
-  position: relative;
-  padding-top: 75px;
-}
-#hero h1 {
-  margin: 0;
-  font-size: 50px;
-  font-weight: 700;
-  line-height: 64px;
-  color: #fff;
-}
-#hero h2 {
-  margin: 10px 0 0 0;
-  font-size: 19px;
-  color: black;
-  text-shadow: 2px 3px 6px #fff;
-}
-#hero h3 {
-  margin: 10px 0 0 0;
-  font-size: 25px;
-  color: white;
-  text-shadow: 5px 5px 4px aqua;
-}
-#hero .icon-box h3 {
-  margin-top: 10px;
-  font-size: 20px;
-  line-height: 26px;
-}
-#hero .icon-box h3 {
-  color: aqua;
-}
-#hero .icon-box h3:hover {
-  color: #fff2cc;
-  cursor: pointer;
+    padding-top: 70px;
 }
 
+body {
+    background-color: black;
+    font-family: "Alegreya Sans", sans-serif;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+    font-size: 110%;
+}
+
+    .navbar-dark .navbar-nav .nav-link:hover {
+        box-sizing: border-box;
+        color: aqua;
+        transform: scale(1.1);
+    }
+
+    .navbar-dark .navbar-nav .nav-link.active {
+        color: aqua;
+        transform: scale(1);
+        border-bottom: 1px solid aqua;
+    }
+
+.btn-outline-dark {
+    color: black;
+    border-color: white;
+    padding: 10px;
+    border-radius: 50px;
+    width: 100px;
+}
+
+    .btn-outline-dark:hover {
+        color: red;
+    }
+
+#wyloguj {
+    position: fixed;
+    right: 45px;
+}
+
+#hero {
+    width: 100%;
+    min-height: 100vh;
+    background: url(https://images.pexels.com/photos/163351/girl-boxer-ring-boxing-pear-163351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2) no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+    #hero:before {
+        content: "";
+        background: rgba(0, 0, 0, 0.6);
+        position: absolute;
+        bottom: 0;
+        top: 0;
+    }
+
+    #hero .container {
+        position: relative;
+        padding-top: 75px;
+    }
+
+    #hero h1 {
+        margin: 0;
+        font-size: 50px;
+        font-weight: 700;
+        line-height: 64px;
+        color: #fff;
+    }
+
+    #hero h2 {
+        margin: 10px 0 0 0;
+        font-size: 19px;
+        color: black;
+        text-shadow: 2px 3px 6px #fff;
+    }
+
+    #hero h3 {
+        margin: 10px 0 0 0;
+        font-size: 25px;
+        color: white;
+        text-shadow: 5px 5px 4px aqua;
+    }
+
+    #hero .icon-box h3 {
+        margin-top: 10px;
+        font-size: 20px;
+        line-height: 26px;
+    }
+
+    #hero .icon-box h3 {
+        color: aqua;
+    }
+
+        #hero .icon-box h3:hover {
+            color: #fff2cc;
+            cursor: pointer;
+        }
+
 .icon-box {
-  padding: 30px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  height: 100%;
-  text-align: center;
-  border-radius: 20px;
+    padding: 30px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    height: 100%;
+    text-align: center;
+    border-radius: 20px;
 }
-.icon-box:hover {
-  border-color: #15f4ee;
-}
+
+    .icon-box:hover {
+        border-color: #15f4ee;
+    }
+
 .about_h {
-  color: aqua;
-  margin-top: 80px;
-  padding: 0;
-  font-size: 30px;
-  letter-spacing: 15px;
+    color: aqua;
+    margin-top: 80px;
+    padding: 0;
+    font-size: 30px;
+    letter-spacing: 15px;
 }
+
 .about_class {
-  color: white;
-  margin-top: 30px;
-  padding: 0;
-  font-size: 18px;
+    color: white;
+    margin-top: 30px;
+    padding: 0;
+    font-size: 18px;
 }
+
 .about_author {
-  color: #fff2cc;
-  font-size: 20px;
-  margin-top: 50px;
+    color: #fff2cc;
+    font-size: 20px;
+    margin-top: 50px;
 }
+
 .Rodo {
-  margin-top: 70px;
-  color: white;
-  font-weight: bold;
+    margin-top: 70px;
+    color: white;
+    font-weight: bold;
 }
 
 .main_form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  width: 100%;
-  background: url(tlo2.jpg) no-repeat;
-  background-position: center;
-  background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: url(tlo2.jpg) no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .form-box {
-  position: relative;
-  width: 450px;
-  height: 520px;
-  background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
-  backdrop-filter: blur(15px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-  padding: 50px;
+    position: relative;
+    width: 450px;
+    height: 520px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    padding: 50px;
 }
-#nagl_cont{
-  font-size: 25px;
+
+#nagl_cont {
+    font-size: 25px;
 }
+
 h2 {
-  font-size: 2em;
-  color: #fff;
-  text-align: center;
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
 }
 
 .inputbox {
-  position: relative;
-  margin: 30px 0;
-  width: 310px;
-  border-bottom: 2px solid #fff;
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border-bottom: 2px solid #fff;
 }
 
-.inputbox label {
-  position: absolute;
-  top: 50%;
-  left: 5px;
-  transform: translateY(-50%);
-  color: #fff;
-  font-size: 1em;
-  pointer-events: none;
-  transition: 0.5s;
-}
+    .inputbox label {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 1em;
+        pointer-events: none;
+        transition: 0.5s;
+    }
 
 input:focus ~ label,
 input:valid ~ label {
-  top: -5px;
+    top: -5px;
 }
 
 .inputbox input {
-  width: 100%;
-  height: 50px;
-  background: transparent;
-  border: none;
-  outline: none;
-  font-size: 1em;
-  padding: 0 35px 0 5px;
-  color: #fff;
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding: 0 35px 0 5px;
+    color: #fff;
 }
 
 button {
-  width: 100%;
-  height: 40px;
-  border-radius: 40px;
-  background: #fff;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: 600;
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
 }
+
 textarea {
-  width: 100%;
-  color: black;
-  min-height: 80px;
-  max-height: 80px;
-  border-radius: 5px;
+    width: 100%;
+    color: black;
+    min-height: 80px;
+    max-height: 80px;
+    border-radius: 5px;
 }
-textarea:focus {
-  border: 2px solid violet;
-}
+
+    textarea:focus {
+        border: 2px solid violet;
+    }
+
 .inputbox_acc {
-  position: relative;
-  margin: 30px 0;
-  width: 310px;
-  border-bottom: 2px solid #fff;
-  color: white;
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border-bottom: 2px solid #fff;
+    color: white;
+    text-align: center;
+    width: 210px;
+}
+
+    .inputbox_acc input {
+        margin-top: 2px;
+        border-radius: 5px;
+        padding: 1px;
+    }
+
+    .inputbox_acc select {
+        margin-top: 5px;
+        border-radius: 5px;
+        width: 210px;
+        padding: 2px;
+    }
+
+.location_main button {
+    color: rgb(153, 65, 59);
+    width: 270px;
+}
+
+.location_main select {
+    margin-top: 10px;
+    color: rgb(153, 65, 59);
+    height: 35px;
+    width: 270px;
+}
+
+.topic_blog button {
+    background-color: rgba(49, 88, 65, 0.534);
+    margin: 5px;
+    border-radius: 20px;
+    color: white;
+    width: 200px;
+    height: 100px;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+}
+
+    .topic_blog button:hover {
+        border: 1px solid aqua;
+        cursor: pointer;
+    }
+
+.result_useful {
+    color: white;
+}
+
+.button_tips {
+    margin-top: 30px;
+    padding: 20px;
+    width: 450px;
+    height: 100px;
+    background-color: rgba(49, 88, 65, 0.534);
+    color: white;
+    font-size: 25px;
+    letter-spacing: 0.3em;
+    border-radius: 20px;
+}
+
+.exercise_main button {
+    background-color: rgba(49, 88, 65, 0.534);
+    margin: 5px;
+    border-radius: 20px;
+    color: white;
+    width: 200px;
+    height: 100px;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+}
+
+.trening_list {
+    padding-top: 20px;
+    width: 550px;
+    color: white;
+    text-align: center;
+}
+
+    .trening_list td {
+        width: 300px;
+        color: white;
+        text-align: center;
+        border: 1px white solid;
+    }
+
+.center-table {
+    margin: 0 auto;
+}
+
+.own_exercise_button {
+    background-color: aqua;
+}
+
+.exercise_select {
+    width: 550px;
+    text-align: center;
+    padding: 5px;
+}
+
+#reps_input {
+    width: 550px;
+    text-align: center;
+    padding: 5px;
+}
+
+.post {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+    .post:hover {
+        border: 1px solid aqua;
+        cursor: pointer;
+    }
+
+.post_title {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.post_content {
+    font-size: 16px;
+    color: white;
+}
+
+.post_author {
+    color: #fff2cc;
+}
+
+.post_input {
+    color: aqua;
+    background-color: black;
+    margin: 5px;
+    border: aqua 2px solid;
+    width: 400px;
+    height: 50px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+    .post_input:hover {
+        cursor: pointer;
+    }
+
+.post_buttn {
+    background-color: rgba(49, 88, 65, 0.534);
+    margin: 5px;
+    border: aqua 2px solid;
+    width: 400px;
+    height: 60px;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+}
+
+    .post_buttn:hover {
+        background-color: aqua;
+        color: black;
+        border-color: aqua;
+    }
+
+.post_textarea {
+    color: aqua;
+    background-color: black;
+    margin: 5px;
+    border: aqua 2px solid;
+    width: 400px;
+    min-height: 200px;
+    text-align: center;
+    border-radius: 10px;
 }
