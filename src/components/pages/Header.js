@@ -1,12 +1,10 @@
 import React from 'react';
-import Logo from '../logo.png';
 import { NavLink } from "react-router-dom";
-const Header = ({ isAdmin }) => {
 import Logo from '../styles/logo.png';
 import "../styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { NavLink} from "react-router-dom";
-const Header = () => {
+
+const Header = ({ isAdmin }) => {
     return ( 
         <header id="header" className="fixed-top">
             <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor:'#000'}}>

@@ -1,5 +1,4 @@
 import React from "react";
-import React from 'react';
 import Header from './Header';
 const Account = () => {
     return (
@@ -35,9 +34,6 @@ const Account = () => {
             </section>
         </div>
     );
-};
-
-export default Account;
 };
  
 export default Account;
