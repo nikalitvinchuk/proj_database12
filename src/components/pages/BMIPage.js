@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../styles/BMI.css";
+import Header from './Header';
+
 export default function BMIPage() {
 
   const [height, setHeight] = useState("");
@@ -53,36 +55,39 @@ export default function BMIPage() {
   };
   
 
-  return (
-    <div className="bmi_main">
-    <div className="container_bmi">
-      <h1>BODY MASS INDEX (BMI) Kalkulator</h1>
+    return (
+    <div>
+        <Header />  
+        <div className="bmi_main">
+        <div className="container_bmi">
+          <h1>BODY MASS INDEX (BMI) Kalkulator</h1>
 
-      <div className="form-item">
-        <label>Wzrost [cm]</label>
-        <input
-          type="number"
-          value={height}
-          onChange={e => setHeight(e.target.value)}
-        />
-      </div>
-      <div className="form-item">
-        <label>Waga [kg]</label>
-        <input
-          type="number"
-          value={weight}
-          onChange={e => setWeight(e.target.value)}
-        />
-      </div>
-      <button className="btn licz" onClick={calculateBmi}>
-        OBLICZ
-      </button>
-      <button className="btn reset" onClick={reset}>
-        RESET
-      </button>
-      {bmi && <div className="result">Twoje BMI wynosi: {bmi}. {bmimessage}</div>}
+          <div className="form-item">
+            <label>Wzrost [cm]</label>
+            <input
+              type="number"
+              value={height}
+              onChange={e => setHeight(e.target.value)}
+            />
+          </div>
+          <div className="form-item">
+            <label>Waga [kg]</label>
+            <input
+              type="number"
+              value={weight}
+              onChange={e => setWeight(e.target.value)}
+            />
+          </div>
+          <button className="btn licz" onClick={calculateBmi}>
+            OBLICZ
+          </button>
+          <button className="btn reset" onClick={reset}>
+            RESET
+          </button>
+          {bmi && <div className="result">Twoje BMI wynosi: {bmi}. {bmimessage}</div>}
       
+        </div>
+        </div>
     </div>
-  </div>
   );
 }

@@ -1,46 +1,96 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import "../styles/Registration.css"
+
 const Registration = () => {
-    return ( 
-    <section>
-         <div className="form-box">
-            <div className="form-value">
-                <form id="login-form">
-                    <h2>Rejestracja</h2>
 
-                    <div className="inputbox">
-                        <ion-icon name="person-outline"></ion-icon>
-                        <input type="text" id="imie"/>
-                        <label>Imię</label>
-                    </div>
-                    <div className="inputbox">
-                        <ion-icon name="people-outline"></ion-icon>
-                        <input type="text" id="nazwisko"/>
-                        <label>Nazwisko</label>
-                    </div>
-                    <div className="inputbox">
-                        <ion-icon name="shield-checkmark-outline"></ion-icon>
-                        <input type="text" id="wiek"/>
-                        <label>Wiek</label>
-                    </div>
-                    <div className="inputbox">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="text" id="login"/>
-                        <label>Login</label>
-                    </div>
-                    <div className="inputbox">
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="password" id="haslo"/>
-                        <label>Hasło</label>
-                    </div>
+    const [imie, setImie] = useState('');
+    const [nazwisko, setNazwisko] = useState('');
+    const [wiek, setWiek] = useState('');
+    const [login, setLogin] = useState('');
+    const [password, setPassword] = useState('');
+    const [success, setSuccess] = useState(false);
 
-                    <button type="button" onclick="zarejestruj()"> Stwórz konto</button>.
-                    <button type="button" onclick="logowanie()"> Wróć na stronę logowania</button>.
-                </form>
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const dataToSend = {
+            imie,
+            nazwisko,
+            wiek,
+            login,
+            password,
+        };
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataToSend),
+        };
+
+        fetch('/register', requestOptions)
+            .then((response) => {
+                console.log(response);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response;
+            })
+            .then((data) => {
+                console.log(data);
+                setImie('');
+                setNazwisko('');
+                setWiek('');
+                setLogin('');
+                setPassword('');
+            })
+            .catch((error) => {
+                console.log('There was a problem with your fetch operation:', error);
+                alert("Coś poszło nie tak. Spróbuj ponownie.");
+            });
+    };
+
+
+    return (
+        <section>
+            <div className="form-box">
+                <div className="form-value">
+                    <form id="login-form" onSubmit={handleSubmit}>
+                        <h2>Rejestracja</h2>
+
+                        <div className="inputbox">
+                            <ion-icon name="person-outline"></ion-icon>
+                            <input type="text" id="imie" value={imie} onChange={(e) => setImie(e.target.value)} />
+                            <label>Imię</label>
+                        </div>
+                        <div className="inputbox">
+                            <ion-icon name="people-outline"></ion-icon>
+                            <input type="text" id="nazwisko" value={nazwisko} onChange={(e) => setNazwisko(e.target.value)} />
+                            <label>Nazwisko</label>
+                        </div>
+                        <div className="inputbox">
+                            <ion-icon name="shield-checkmark-outline"></ion-icon>
+                            <input type="text" id="wiek" value={wiek} onChange={(e) => setWiek(e.target.value)} />
+                            <label>Wiek</label>
+                        </div>
+                        <div className="inputbox">
+                            <ion-icon name="mail-outline"></ion-icon>
+                            <input type="text" id="login" value={login} onChange={(e) => setLogin(e.target.value)} />
+                            <label>Login</label>
+                        </div>
+                        <div className="inputbox">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <input type="password" id="haslo" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <label>Hasło</label>
+                        </div>
+                        <button type="submit">Stwórz konto</button>.
+                        <NavLink to="/"><button type="button">Wróć na stronę logowania</button>.</NavLink>
+
+                    </form>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
     );
 }
- 
+
 export default Registration;

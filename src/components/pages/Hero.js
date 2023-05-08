@@ -18,13 +18,13 @@ const Hero = () => {
     return ( 
         <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact/>} />
-            <Route path="account" element={<Account/>} />
-            <Route path="narzedzia" element={<Narzedzia/>} />
-            <Route path="narzedzia/bmi" element={<BMIPage/>} />
-            <Route path="narzedzia/bmr" element={<BMRPage/>} />
-            <Route path="narzedzia/water" element={<WaterPage/>} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact/>} />
+            <Route path="/account" element={<Account/>} />
+            <Route path="/narzedzia" element={<Narzedzia/>} />
+            <Route path="/narzedzia/bmi" element={<BMIPage/>} />
+            <Route path="/narzedzia/bmr" element={<BMRPage/>} />
+            <Route path="/narzedzia/water" element={<WaterPage/>} />
             <Route path="/exerciseBase" element={<ExerciseBase/>}/>
             <Route path="/locationBase" element={<LocationBase/>}/>
             <Route path="/blog" element={<Blog/>}/>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/BMI.css";
+import Header from './Header';
 
 export default function WaterIntakePage() {
 
@@ -20,31 +21,34 @@ export default function WaterIntakePage() {
     setWaterIntake("");
   };
 
-  return (
-    <div className="bmi_main">
-      <div className="container_bmi">
-        <h1>Kalkulator ilości wody do picia</h1>
+    return (
+        <div>
+            <Header />
+            <div className="bmi_main">
+              <div className="container_bmi">
+                <h1>Kalkulator ilości wody do picia</h1>
 
-        <div className="form-item">
-          <label>Waga [kg]</label>
-          <input
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-          />
+                <div className="form-item">
+                  <label>Waga [kg]</label>
+                  <input
+                    type="number"
+                    value={weight}
+                    onChange={(e) => setWeight(e.target.value)}
+                  />
+                </div>
+                <button className="btn licz" onClick={calculateWaterIntake}>
+                  OBLICZ
+                </button>
+                <button className="btn reset" onClick={reset}>
+                  RESET
+                </button>
+                {waterIntake && (
+                  <div className="result">
+                    Twoje zalecane spożycie wody na dzień wynosi: {waterIntake} litrów.
+                  </div>
+                )}
+              </div>
+            </div>
         </div>
-        <button className="btn licz" onClick={calculateWaterIntake}>
-          OBLICZ
-        </button>
-        <button className="btn reset" onClick={reset}>
-          RESET
-        </button>
-        {waterIntake && (
-          <div className="result">
-            Twoje zalecane spożycie wody na dzień wynosi: {waterIntake} litrów.
-          </div>
-        )}
-      </div>
-    </div>
   );
 }

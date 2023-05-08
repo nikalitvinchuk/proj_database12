@@ -1,55 +1,53 @@
 // Importowanie potrzebnych modu³ów
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './index.css';
-import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import Login from './components/pages/Login';
+import Registration from './components/pages/Registration';
+
+import MainPage from './components/pages/MainPage';
+import About from './components/pages/About';
+import Contact from './components/pages/Contact';
+import Account from './components/pages/Account';
+import Narzedzia from "./components/pages/Narzedzia";
+import BMIPage from "./components/pages/BMIPage";
+import BMRPage from "./components/pages/BMRPage";
+import WaterPage from "./components/pages/WaterPage";
+import ExerciseBase from "./components/pages/ExerciseBase";
+import LocationBase from "./components/pages/LocationBase";
+import Useful from "./components/pages/Useful";
+import Blog from "./components/pages/Blog";
 
 // Pobieranie elementu DOM
 const root = document.getElementById('root');
 
 // G³ówny komponent aplikacji
-const AppWrapper = () => {
+const AppWrapper = () => (
+// Renderowanie komponentów aplikacji
+    <React.StrictMode>
+        <Router>
+            <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/registration" element={<Registration />} />
 
-    // Ustawianie pocz¹tkowego stanu aplikacji na "false" (niezalogowany)
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    // Funkcja obs³uguj¹ca logowanie u¿ytkownika
-    const handleLogin = (username, password) => {
-        // Wys³anie zapytania do serwera z danymi logowania
-        fetch('/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        })
-            // Obs³uga odpowiedzi serwera
-            .then(res => res.json())
-            .then(data => {
-                // Jeœli logowanie siê powiod³o
-                if (data.success) {
-                    setIsLoggedIn(true);
-                } else {
-                    // Jeœli logowanie siê nie powiod³o, wyœwietl komunikat o b³êdzie
-                    alert('Invalid username or password');
-                }
-            })
-            .catch(err => {
-                // Jeœli wyst¹pi³ b³¹d, wyœwietl komunikat o b³êdzie w konsoli i w oknie przegl¹darki
-                console.error(err);
-                alert('Something went wrong');
-            });
-    };
-
-    // Renderowanie komponentów aplikacji
-    return (
-        <React.StrictMode>
-            {isLoggedIn ? <App /> : <Login onLogin={handleLogin} />}
-        </React.StrictMode>
-    );
-};
+                <Route path="/" element={<MainPage />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/narzedzia" element={<Narzedzia />} />
+                <Route path="/narzedzia/bmi" element={<BMIPage />} />
+                <Route path="/narzedzia/bmr" element={<BMRPage />} />
+                <Route path="/narzedzia/water" element={<WaterPage />} />
+                <Route path="/exerciseBase" element={<ExerciseBase />} />
+                <Route path="/locationBase" element={<LocationBase />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/useful" element={<Useful />} />
+            </Routes>
+        </Router>
+    </React.StrictMode>
+);
 
 // Renderowanie g³ównego komponentu aplikacji
 ReactDOM.render(<AppWrapper />, root);

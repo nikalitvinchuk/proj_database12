@@ -1,29 +1,34 @@
 import React from "react";
+import Header from './Header';
+
 const Contact = () => {
-  return (
-    <section className="main_form">
-        <div className="form-box">
-            <div className="form-value">
-                <form id="login-form">
-                    <h2>Wypełnij formularz</h2>
-                    <div className="inputbox">
-                        <input type="text" id="title_input" required/>
-                        <label>Tytuł</label>
-                    </div>
-                    <div className="inputbox">
-                        <input type="text" id="password-input" required/>
-                        <label>Email</label>
-                    </div>
-                    <div className="inputbox">
-                      <textarea placeholder="Treść zgłoszenia"></textarea>
-                    </div>
+    return (
+    <div>
+        <Header /> 
+        <section className="main_form">
+            <div className="form-box">
+                <div className="form-value">
+                    <form id="login-form">
+                        <h2>Wypełnij formularz</h2>
+                        <div className="inputbox">
+                            <input type="text" id="title_input" required/>
+                            <label>Tytuł</label>
+                        </div>
+                        <div className="inputbox">
+                            <input type="text" id="password-input" required/>
+                            <label>Email</label>
+                        </div>
+                        <div className="inputbox">
+                          <textarea placeholder="Treść zgłoszenia"></textarea>
+                        </div>
                    
-                    <button type="button">Wyślij</button>.
+                        <button type="button">Wyślij</button>.
                     
-                </form>
+                    </form>
+                </div>
             </div>
+            </section>
         </div>
-    </section>
   );
 };
 

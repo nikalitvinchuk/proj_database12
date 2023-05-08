@@ -9,7 +9,7 @@
     "bootstrap": "^5.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.10.0",
+    "react-router-dom": "^6.11.0",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -32,9 +32,11 @@
     ]
   },
   "devDependencies": {
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react": "^7.32.2",
+    "express-session": "^1.17.3",
     "mysql": "^2.18.1"
   }
 }
