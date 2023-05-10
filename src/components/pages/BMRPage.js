@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "../styles/BMI.css";
 import Header from './Header';
+import withAuth from '../../withAuth';
 
-export default function BMRPage() {
+const BMRPage = () => {
     const [gender, setGender] = useState("");
     const [height, setHeight] = useState("");
     const [weight, setWeight] = useState("");
@@ -123,3 +124,5 @@ export default function BMRPage() {
         </div>
     );
 }
+
+export default withAuth(BMRPage);

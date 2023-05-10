@@ -1,5 +1,7 @@
 import Header from './Header';
 import React, { useState } from "react";
+import withAuth from '../../withAuth';
+
 const Blog = props => {
   const [category, setCategory] = useState("Zdrowie");
   const posts = [
@@ -162,4 +164,4 @@ const Blog = props => {
   );
 };
 
-export default Blog;
+export default withAuth(Blog);

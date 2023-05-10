@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from './Header';
+import withAuth from '../../withAuth';
 
 //funkcje obsługujące dodatkowy formularz do wprowadzenia swoich danych
 const ExerciseBase = props => {
@@ -270,4 +271,4 @@ const ExerciseBase = props => {
     );
 };
 
-export default ExerciseBase;
+export default withAuth(ExerciseBase);

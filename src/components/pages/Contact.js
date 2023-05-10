@@ -1,5 +1,6 @@
 import React from "react";
 import Header from './Header';
+import withAuth from '../../withAuth';
 
 const Contact = () => {
     return (
@@ -32,4 +33,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default withAuth(Contact);

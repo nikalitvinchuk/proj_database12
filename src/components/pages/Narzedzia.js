@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 import Header from './Header';
+import withAuth from '../../withAuth';
 
 const Narzedzia= () => {
     return ( 
@@ -65,4 +66,4 @@ const Narzedzia= () => {
     );
 }
  
-export default Narzedzia;
+export default withAuth(Narzedzia);

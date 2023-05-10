@@ -11,23 +11,29 @@ const checkSession = async () => {
 const withAuth = (Component) => {
     const AuthenticatedComponent = (props) => {
         const navigate = useNavigate();
-        const [isLoggedIn, setIsLoggedIn] = useState(false);
+        const [isLoggedIn, setIsLoggedIn] = useState(null);
 
         console.log("test");
         useEffect(() => {
-            const checkAuth = () => {
-                const loggedIn = checkSession();
+            const checkAuth = async () => {
+                const loggedIn = await checkSession();
                 setIsLoggedIn(loggedIn);
             };
             checkAuth();
         }, []);
-
-        if (!isLoggedIn) {
-            navigate("/login");
-            return null;
+        console.log(isLoggedIn)
+        if (isLoggedIn != null) {
+            if (!isLoggedIn) {
+                console.log("NIE UDA£O SIE ZALOGOWAÆ")
+                navigate("/login")
+                return false;
+            } else {
+                console.log("UDA£O SIÊ ZALOGOWAÆ")
+            }
         }
 
         return <Component {...props} />;
+
     };
 
     return AuthenticatedComponent;

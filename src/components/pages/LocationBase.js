@@ -1,5 +1,6 @@
 import React from "react";
 import Header from './Header';
+import withAuth from '../../withAuth';
 
 const LocationBase = () => {
     return (
@@ -40,4 +41,4 @@ const LocationBase = () => {
     );
 };
 
-export default LocationBase;
+export default withAuth(LocationBase);

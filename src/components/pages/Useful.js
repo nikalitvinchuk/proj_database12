@@ -1,5 +1,6 @@
 import React from "react";
 import Header from './Header';
+import withAuth from '../../withAuth';
 
 const Useful = () => {
     return (
@@ -24,4 +25,4 @@ const Useful = () => {
     );
 };
 
-export default Useful;
+export default withAuth(Useful);

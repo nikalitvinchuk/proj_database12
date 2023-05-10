@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import Header from './Header';
 import "../styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import withAuth from '../../withAuth';
  
 const MainPage = () => {
     return ( 
@@ -85,4 +86,4 @@ const MainPage = () => {
     );
 }
  
-export default MainPage;
+export default withAuth(MainPage);
