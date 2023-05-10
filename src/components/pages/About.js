@@ -1,5 +1,7 @@
 import React from "react";
 import Header from './Header';
+import withAuth from '../../withAuth';
+
 const About = () => {
     return (
     <div>
@@ -27,4 +29,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default withAuth(About);

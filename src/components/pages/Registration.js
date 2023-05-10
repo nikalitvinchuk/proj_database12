@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import "../styles/Registration.css"
+import axios from 'axios';
 
 const Registration = () => {
-
     const [imie, setImie] = useState('');
     const [nazwisko, setNazwisko] = useState('');
     const [wiek, setWiek] = useState('');
@@ -22,22 +22,10 @@ const Registration = () => {
             password,
         };
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(dataToSend),
-        };
-
-        fetch('/register', requestOptions)
+        axios.post('/register', dataToSend)
             .then((response) => {
                 console.log(response);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response;
-            })
-            .then((data) => {
-                console.log(data);
+                setSuccess(true);
                 setImie('');
                 setNazwisko('');
                 setWiek('');
@@ -45,7 +33,7 @@ const Registration = () => {
                 setPassword('');
             })
             .catch((error) => {
-                console.log('There was a problem with your fetch operation:', error);
+                console.log('There was a problem with your axios operation:', error);
                 alert("Coś poszło nie tak. Spróbuj ponownie.");
             });
     };
@@ -55,6 +43,7 @@ const Registration = () => {
         <section>
             <div className="form-box">
                 <div className="form-value">
+                    {success && <p>Registration successful!</p>}
                     <form id="login-form" onSubmit={handleSubmit}>
                         <h2>Rejestracja</h2>
 

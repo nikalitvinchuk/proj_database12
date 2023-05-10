@@ -1,38 +1,34 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import axios from 'axios';
 
-const Login = (props) => {
-    const [username, setUsername] = useState(""); // definicja stanu username za pomocą hooka useState
-    const [password, setPassword] = useState(""); // definicja stanu password za pomocą hooka useState
+const Login = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    axios.defaults.withCredentials = true;
 
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {             // definicja funkcji handleSubmit, która obsługuje przesyłanie formularza
-        event.preventDefault();                   // zapobieganie domyślnej akcji przeglądarki, czyli przeładowania strony po przesłaniu formularza
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
-            fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
+        axios.post("/login", { username, password }, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then((res) => {
+                if (res.data.success) {
+                    navigate("/");
+                } else {
+                    alert("Invalid username or password");
+                }
             })
-                // Obsługa odpowiedzi serwera
-                .then(res => res.json())
-                .then(data => {
-                    // Jeśli logowanie się powiodło
-                    if (data.success) {
-                        navigate("/");
-                    } else {
-                        // Jeśli logowanie się nie powiodło, wyświetl komunikat o błędzie
-                        alert('Invalid username or password');
-                    }
-                })
-                .catch(err => {
-                    // Jeśli wystąpił błąd, wyświetl komunikat o błędzie w konsoli i w oknie przeglądarki
-                    console.error(err);
-                });
+            .catch((err) => {
+                console.error(err);
+            });
     };
 
     return (

@@ -32,11 +32,15 @@
     ]
   },
   "devDependencies": {
+    "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react": "^7.32.2",
     "express-session": "^1.17.3",
+    "js-cookie": "^3.0.5",
     "mysql": "^2.18.1"
   }
 }

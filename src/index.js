@@ -1,7 +1,7 @@
 // Importowanie potrzebnych modu³ów
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Login from './components/pages/Login';
@@ -23,31 +23,31 @@ import Blog from "./components/pages/Blog";
 // Pobieranie elementu DOM
 const root = document.getElementById('root');
 
-// G³ówny komponent aplikacji
-const AppWrapper = () => (
-// Renderowanie komponentów aplikacji
-    <React.StrictMode>
-        <Router>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/registration" element={<Registration />} />
+const AppWrapper = () => {
+    return (
+        <React.StrictMode>
+            <Router>
+                <Routes>
+                        <Route path="/registration" element={<Registration />} />
+                        <Route path="/" element={<MainPage />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/contact" element={<Contact />} />
+                        <Route path="/account" element={<Account />} />
+                        <Route path="/narzedzia" element={<Narzedzia />} />
+                        <Route path="/narzedzia/bmi" element={<BMIPage />} />
+                        <Route path="/narzedzia/bmr" element={<BMRPage />} />
+                        <Route path="/narzedzia/water" element={<WaterPage />} />
+                        <Route path="/exerciseBase" element={<ExerciseBase />} />
+                        <Route path="/locationBase" element={<LocationBase />} />
+                        <Route path="/blog" element={<Blog />} />
+                        <Route path="/useful" element={<Useful />} />
+                        <Route path="/login" element={<Login />} />
+                </Routes>
+            </Router>
+        </React.StrictMode>
+    );
+};
 
-                <Route path="/" element={<MainPage />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/account" element={<Account />} />
-                <Route path="/narzedzia" element={<Narzedzia />} />
-                <Route path="/narzedzia/bmi" element={<BMIPage />} />
-                <Route path="/narzedzia/bmr" element={<BMRPage />} />
-                <Route path="/narzedzia/water" element={<WaterPage />} />
-                <Route path="/exerciseBase" element={<ExerciseBase />} />
-                <Route path="/locationBase" element={<LocationBase />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/useful" element={<Useful />} />
-            </Routes>
-        </Router>
-    </React.StrictMode>
-);
 
 // Renderowanie g³ównego komponentu aplikacji
 ReactDOM.render(<AppWrapper />, root);

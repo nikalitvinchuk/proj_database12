@@ -1,14 +1,12 @@
 const express = require('express');
 const path = require('path');
 const db = require('./db')
+const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
-
-// Konfiguruje parsowanie cia³a ¿¹dania
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 // Nawi¹zanie po³¹czenia z baz¹ danych
 db.connect((error) => {
@@ -18,6 +16,30 @@ db.connect((error) => {
         console.log('Po³¹czono z baz¹ danych.');
     }
 });
+
+// Konfiguruje parsowanie cia³a ¿¹dania
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser('mysecretkey'));
+
+app.use(cors({
+    origin: ["http://localhost:5000"],
+    methods: ["GET", "POST"],
+    credentials: true
+}));
+
+// Konfiguracja sesji
+app.use(
+    session({
+        key: "userid",
+        secret: 'mysecretkey',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            expires: 120,
+        }
+    })
+);
 
 // ustawienie katalogu, w którym znajduj¹ siê pliki statyczne
 app.use(express.static(path.join(__dirname, 'build')));
@@ -34,66 +56,60 @@ app.use('/register', Register);
 // Obs³uga ¿¹dania HTTP POST na endpoint '/login'
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-
     // Sprawdzenie, czy przes³ano nazwê u¿ytkownika i has³o w ¿¹daniu
     if (!username || !password) {
-        res.json({ success: false }); // Jeœli brakuje któregoœ z pól, wys³anie odpowiedzi z polem success ustawionym na false
-        return;
+        return res.json({ success: false }); // Jeœli brakuje któregoœ z pól, wys³anie odpowiedzi z polem success ustawionym na false
     }
 
     // Przygotowanie zapytania SQL do pobrania u¿ytkownika o danej nazwie z bazy danych
     const sql = `SELECT * FROM users WHERE login = ?`;
     db.query(sql, [username], (err, result) => {
         if (err) {
-            res.json({ success: false, error: err }); // Wys³anie odpowiedzi z polem success ustawionym na false i polem error opisuj¹cym b³¹d
-            console.log("le 2");
-            return;
+            return res.json({ success: false, error: err }); // Wys³anie odpowiedzi z polem success ustawionym na false i polem error opisuj¹cym b³¹d
         }
 
         // Sprawdzenie, czy zapytanie zwróci³o wynik
         if (result.length === 0) {
-            res.json({ success: false, message: 'Invalid username or password' }); // Jeœli nie znaleziono u¿ytkownika, wys³anie odpowiedzi z polem success ustawionym na false i polem message z opisem b³êdu
-            console.log("le 3");
-            console.log(result);
-            return;
+            return res.json({ success: false, message: 'Invalid username or password' }); // Jeœli zapytanie nie zwróci³o wyniku, wys³anie odpowiedzi z polem success ustawionym na false i polem message z komunikatem o b³êdzie logowania
         }
 
-        // Porównanie has³a wpisanego przez u¿ytkownika z zahaszowanym has³em z bazy danych
-        const hash = result[0].password;
-        bcrypt.compare(password, hash, (err, isValid) => {
-            if (err) {
-                res.json({ success: false, error: err }); // Wys³anie odpowiedzi z polem success ustawionym na false i polem error opisuj¹cym b³¹d
-                console.log("le 1");
-                return;
+        // Porównanie has³a z baz¹ danych z has³em przes³anym w ¿¹daniu
+        const user = result[0];
+        bcrypt.compare(password, user.password, (error, match) => {
+            if (error) {
+                return res.json({ success: false, error: error });
+            }
+            if (!match) {
+                return res.json({ success: false, message: 'Invalid username or password' });
             }
 
-            if (!isValid) {
-                res.json({ success: false, message: 'Invalid username or password' }); // Jeœli has³o jest nieprawid³owe, wys³anie odpowiedzi z polem success ustawionym na false i polem message z opisem b³êdu
-                console.log("le 3");
-                return;
-            }
+            // Zalogowanie u¿ytkownika - ustawienie klucza sesji na jego identyfikatorze
+            req.session.userid = user.id_user;
 
-            res.json({ success: true, message: 'Successful login' }); // Jeœli has³o jest prawid³owe, wys³anie odpowiedzi z polem success ustawionym na true i polem message z informacj¹ o pomyœlnym logowaniu
-            console.log("Dobrze");
+            console.log(req.session.userId);
 
-            // Konfiguracja sesji
-            app.use(session({
-                secret: 'some secret key',
-                resave: false,
-                saveUninitialized: false,
-                cookie: { maxAge: 60000 } // Czas trwania sesji w milisekundach
-            }));
+            // Utworzenie ciasteczka z identyfikatorem u¿ytkownika
+            res.cookie('userid', user.id_user);
+
+            res.json({ success: true });
         });
     });
 });
 
 
+app.get('/session', (req, res) => {
+    const userid = req.session.userid;
+    console.log(userid);
+    if (userid) {
+        return res.json({ loggedIn: true, userId });
+    } else {
+        return res.json({ loggedIn: false });
+    }
+});
 
-// Import modu³u obs³ugi logowania
-//const Login = require('./log');
-//app.use('/login', Login);
 
-// uruchomienie serwera na porcie 3000
+
+// Start serwera nas³uchuj¹cego na porcie 5000
 app.listen(5000, () => {
-    console.log('Serwer uruchomiony na porcie 3000');
+    console.log('Serwer zosta³ uruchomiony na porcie 5000.');
 });
