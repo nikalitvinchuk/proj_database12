@@ -25,4 +25,4 @@ const Useful = () => {
     );
 };
 
-export default withAuth(Useful);
+export default Useful;
