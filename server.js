@@ -8,6 +8,31 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 
+
+const randomTipRouter = express.Router(); //nowy ruter express.js
+//definicja ścieżki z metodą get na ruterze
+randomTipRouter.get('/', (req, res) => {
+    const sql = 'SELECT tresc FROM tips ORDER BY RAND() LIMIT 1';
+    db.query(sql, (error, result) => {
+        if (error) {
+            res.status(500).json({ error: "Server error" });
+            console.log('Nie wylosowano');
+        }
+        //jeśli połączenie jest poprawne przypisz wskazówke 
+        else {
+            const randomTip = result[0].tresc;
+            res.json({ tresc: randomTip });
+            console.log('Wylosowano wskazówke');
+        }
+    });
+
+});
+app.use('/random-tip', randomTipRouter); //rejestrsacja rutera
+
+
+
+
+
 // Nawi�zanie po��czenia z baz� danych
 db.connect((error) => {
     if (error) {
@@ -101,7 +126,7 @@ app.post('/login', (req, res) => {
             res.cookie('random_login_key', key);
             session[key] = {
                 user_id: user.id_user,
-                commt: "JEBAC ZSEM"
+                commt: "Ok"
             }
 
             console.log(session[key])
