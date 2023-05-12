@@ -7,6 +7,7 @@ const Registration = () => {
     const [imie, setImie] = useState('');
     const [nazwisko, setNazwisko] = useState('');
     const [wiek, setWiek] = useState('');
+    const [email, setEmail] = useState('');
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [success, setSuccess] = useState(false);
@@ -18,6 +19,7 @@ const Registration = () => {
             imie,
             nazwisko,
             wiek,
+            email,
             login,
             password,
         };
@@ -29,6 +31,7 @@ const Registration = () => {
                 setImie('');
                 setNazwisko('');
                 setWiek('');
+                setEmail('');
                 setLogin('');
                 setPassword('');
             })
@@ -61,6 +64,11 @@ const Registration = () => {
                             <ion-icon name="shield-checkmark-outline"></ion-icon>
                             <input type="text" id="wiek" value={wiek} onChange={(e) => setWiek(e.target.value)} />
                             <label>Wiek</label>
+                        </div>
+                        <div className="inputbox">
+                            <ion-icon name="shield-checkmark-outline"></ion-icon>
+                            <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <label>Email</label>
                         </div>
                         <div className="inputbox">
                             <ion-icon name="mail-outline"></ion-icon>

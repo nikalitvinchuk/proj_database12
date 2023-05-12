@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
+const AWS = require('aws-sdk');
 
 // Nawi�zanie po��czenia z baz� danych
 db.connect((error) => {
@@ -101,7 +102,6 @@ app.post('/login', (req, res) => {
             res.cookie('random_login_key', key);
             session[key] = {
                 user_id: user.id_user,
-                commt: "JEBAC ZSEM"
             }
 
             console.log(session[key])
@@ -124,6 +124,85 @@ app.get('/logout', (req, res) => {
     delete session[req.cookies.random_login_key];
     res.clearCookie('random_login_key');
     res.json(true);
+});
+
+
+app.get('/user', (req, res) => {
+    const userId = session[req.cookies.random_login_key].user_id;
+    const sql = `SELECT imie, nazwisko, email, wiek, login FROM users WHERE id_user = ${userId}`;
+
+    db.query(sql, (error, results) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ error: 'Błąd serwera' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'Użytkownik nie istnieje' });
+        }
+
+        const { imie, nazwisko, email, wiek, login } = results[0];
+
+        res.json({
+            firstName: imie,
+            lastName: nazwisko,
+            email,
+            age: wiek,
+            login
+        });
+    });
+});
+
+
+app.get('/blog', (req, res) => {
+    const query = "SELECT * FROM blog";
+    db.query(query, (error, results) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Error fetching posts from database" });
+        }
+        res.json(results);
+    });
+});
+
+
+AWS.config.update({
+    accessKeyId: 'AKIAS7YEJWSUTXUVUWGB',
+    secretAccessKey: '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',
+    region: 'eu-central-1'
+});
+const ses = new AWS.SES({ apiVersion: '2010-12-01' });
+app.post('/email', (req, res) => {
+    const { title, email, message } = req.body;
+
+    const params = {
+        Destination: {
+            ToAddresses: ['michal.m1234@interia.pl']
+        },
+        Message: {
+            Body: {
+                Text: {
+                    Charset: "UTF-8",
+                    Data: `Autor: ${email}, Wiadomość: ${message}`
+                }
+            },
+            Subject: {
+                Charset: 'UTF-8',
+                Data: `${title}`
+            }
+        },
+        Source: 'mmordarski@int.pl',
+    };
+
+    ses.sendEmail(params, (err, data) => {
+        if (err) {
+            console.log(err, err.stack);
+            res.status(500).send('Error sending email');
+        } else {
+            console.log(data);
+            res.send('Email sent successfully');
+        }
+    });
 });
 
 
