@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from '../styles/logo.png';
 import "../styles/App.css";
@@ -19,16 +19,37 @@ const Header = ({ isAdmin }) => {
             });
     };
 
+        const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+        const toggleMenu = () => {
+            setIsMenuOpen(!isMenuOpen);
+        };
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+    };
+
+
     return (
         <header id="header" className="fixed-top">
             <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#000' }}>
                 <div className="container">
                     <NavLink to="/" exact={true} className="navbar-brand"><img src={Logo} alt="" style={{ width: '55%' }} /></NavLink>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        onClick={toggleMenu}
+                        aria-expanded={isMenuOpen ? "true" : "false"}
+                        aria-label="Toggle navigation"
+                    >
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <div className="collapse navbar-collapse" id="navContent">
+                    <div
+                        className={`collapse navbar-collapse ${isMenuOpen ? "show" : ""}`}
+                        id="navContent"
+                        onMouseLeave={closeMenu}
+                    >
                         <ul className="navbar-nav mr-auto mb-3 mb-lg 0">
                             <li className="nav-item">
                                 <NavLink to="/" exact={true} className="nav-link"><i className="fa fa-home"></i> Strona główna</NavLink>
