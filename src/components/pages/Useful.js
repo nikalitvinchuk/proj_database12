@@ -2,25 +2,28 @@ import React, { useState } from "react";
 import Header from './Header';
 
 const Useful = () => {
-
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [randomTip, setRandomTip] = useState(localStorage.getItem('selectedTip') || "");
 
-    const [tresc, setTip] = useState("");
     const handleRandomTip = () => {
-        setIsButtonDisabled(true); // Wy³¹cza przycisk
+        setIsButtonDisabled(true);
 
         fetch('/random-tip')
             .then(response => response.json())
             .then(data => {
                 if (data.tresc) {
-                    setTip(data.tresc);
+                    setRandomTip(data.tresc);
+                    // Zapisujemy wybran¹ wskazówkê w pamiêci przegl¹darki
+                    localStorage.setItem('selectedTip', data.tresc);
+
                     setTimeout(() => {
                         setIsButtonDisabled(false);
-                        setTip("");
-                    }, 25000); // Czas w milisekundach (25 sekund)
+                        setRandomTip("");
+                        // Usuwamy wybran¹ wskazówkê z pamiêci przegl¹darki
+                        localStorage.removeItem('selectedTip');
+                    }, 24 * 60 * 60 * 1000);
                 }
             })
-
             .catch(error => {
                 console.error('Wyst¹pi³ b³¹d', error);
                 setIsButtonDisabled(false);
@@ -30,18 +33,14 @@ const Useful = () => {
     return (
         <div>
             <Header />
-            <section
-                id="hero"
-                className="d-flex.align-items-center justify-content-center"
-            >
+            <section id="hero" className="d-flex.align-items-center justify-content-center">
                 <div className="container text-center">
                     <div className="row justify-content-center">
                         <div className="col-md-6 col-lg-8 mb-3">
-                            <h1 className="nagl1"> Wylosuj wskazowke na dzis</h1>
+                            <h1 className="nagl1">Wylosuj wskazówkê na dziœ</h1>
                             <button className="button_tips" onClick={handleRandomTip} disabled={isButtonDisabled}>Losuj</button>
                             <div className="result_useful">
-
-                                {tresc && <p className="p_useful">{tresc}</p>}
+                                {randomTip && <p className="p_useful">{randomTip}</p>}
                             </div>
                         </div>
                     </div>

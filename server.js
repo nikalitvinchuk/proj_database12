@@ -3,6 +3,7 @@ const path = require('path');
 const db = require('./db')
 const cors = require('cors');
 const app = express();
+const app2 = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -18,17 +19,34 @@ randomTipRouter.get('/', (req, res) => {
         if (error) {
             res.status(500).json({ error: "Server error" });
             console.log('Nie wylosowano');
-        }
-        //jeśli połączenie jest poprawne przypisz wskazówke 
-        else {
+        } else {
             const randomTip = result[0].tresc;
             res.json({ tresc: randomTip });
-            console.log('Wylosowano wskazówke');
+            console.log('Wylosowano wskazówkę');
+
+            if (req.session && req.session.tip) {
+                req.session.tip = randomTip;
+                req.session.cookie.expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+            }
         }
     });
-
 });
-app.use('/random-tip', randomTipRouter); //rejestrsacja rutera
+
+app.use('/random-tip', randomTipRouter);//rejestrsacja rutera
+
+
+app2.use(
+    session({
+        key: "userid",
+        secret: 'mysecretkey',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 25 * 1000, // 24 godziny w milisekundach
+        }
+    })
+);
+
 
 
 
