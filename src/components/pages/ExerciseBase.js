@@ -1,17 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Header from './Header';
 import withAuth from '../../withAuth';
 
-//funkcje obsługujące dodatkowy formularz do wprowadzenia swoich danych
-const ExerciseBase = props => {
+const ExerciseBase = (props) => {
     const [formVisible, setFormVisible] = useState(props.formVisible);
-
-    function ExerciseForm() {
-        const [formVisible, setFormVisible] = useState(false);
-    }
-
-    //obsługa przycisku Dodaj zestaw
     const [isButtonClicked, setIsButtonClicked] = useState(false);
+    const [selectedLevel, setSelectedLevel] = useState(
+        props.defaultLevel || "Początkowy"
+    );
+    const [exercise, setExercise] = useState("");
+    const [reps, setReps] = useState(0);
+    const [exercises, setExercises] = useState([]);
+    const [exerciseSets, setExerciseSets] = useState([]);
+
+    useEffect(() => {
+        // pobieranie listy ćwiczeń z bazy danych
+        axios
+            .get("/exercises")
+            .then((response) => {
+                setExercises(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        // pobieranie listy zestawów z bazy danych
+        axios
+            .get("/exercise-sets")
+            .then((response) => {
+                setExerciseSets(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
+    const handleLevelClick = (level) => {
+        setSelectedLevel(level);
+    };
+
+    const handleExerciseChange = (event) => {
+        setExercise(event.target.value);
+    };
+
+    const handleRepsChange = (event) => {
+        setReps(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+    };
 
     const showForm = () => {
         setFormVisible(true);
@@ -23,69 +62,6 @@ const ExerciseBase = props => {
         setIsButtonClicked(false);
     };
 
-    const [selectedLevel, setSelectedLevel] = useState(
-        props.defaultLevel || "Początkowy"
-    );
-    const handleLevelClick = level => {
-        setSelectedLevel(level);
-    };
-
-    const [exercise, setExercise] = useState(""); // dodajemy stan dla wybranego ćwiczenia
-    const [reps, setReps] = useState(0); // dodajemy stan dla liczby powtórzeń
-
-    const exercises = [
-        // tworzymy listę dostępnych ćwiczeń
-        { id: "1", name: "Brzuszki" },
-        { id: "2", name: "Przysiady" },
-        { id: "3", name: "Deska" },
-        { id: "4", name: "Podciąganie" },
-        { id: "5", name: "Pompki" }
-    ];
-
-    const handleSubmit = event => {
-        // funkcja obsługująca przesłanie formularza
-        event.preventDefault();
-        console.log(`Wybrane ćwiczenie: ${exercise}, liczba powtórzeń: ${reps}`);
-    };
-
-    const handleExerciseChange = event => {
-        // funkcja obsługująca zmianę wybranego ćwiczenia
-        setExercise(event.target.value);
-    };
-
-    const handleRepsChange = event => {
-        // funkcja obsługująca zmianę liczby powtórzeń
-        setReps(event.target.value);
-    };
-
-    // macierz przykładowych wyświetlanych zestawów
-    const exerciseSets = [
-        [
-            { exercise: "Pompki", repetitions: 10, breakTime: "1 min" },
-            { exercise: "Przysiady", repetitions: 15, breakTime: "1 min" },
-            { exercise: "Brzuszki", repetitions: 20, breakTime: "1 min" }
-        ],
-        [
-            { exercise: "Podciąganie na drążku", repetitions: 8, breakTime: "2 min" },
-            {
-                exercise: "Przysiady z obciążeniem",
-                repetitions: 12,
-                breakTime: "2 min"
-            },
-            { exercise: "Plank", repetitions: "max", breakTime: "2 min" }
-        ],
-        [
-            { exercise: "Muscle up", repetitions: 5, breakTime: "3 min" },
-            { exercise: "Pistol squat", repetitions: 10, breakTime: "3 min" },
-            { exercise: "Hollow body hold", repetitions: "max", breakTime: "3 min" }
-        ],
-        [
-            { exercise: "Podnoszenie ciężaru", repetitions: 5, breakTime: "3 min" },
-            { exercise: "Brzuszki", repetitions: 10, breakTime: "3 min" },
-            { exercise: "Bieg na miejscu", repetitions: "10 min", breakTime: "3 min" }
-        ]
-    ];
-
     // obsługa 2 x onClick dla przycisków poziomu zaawansowania
     const handleLevelClickAndHideForm = level => {
         handleLevelClick(level);
@@ -95,10 +71,7 @@ const ExerciseBase = props => {
     return (
         <div>
             <Header />
-            <section
-                id="hero"
-                className="d-flex.align-items-center justify-content-center"
-            >
+            <section id="hero" className="d-flex align-items-center justify-content-center">
                 <div className="container text-center">
                     <div className="row justify-content-center">
                         <div className="col-md-6 col-lg-8 mb-3">
@@ -110,108 +83,48 @@ const ExerciseBase = props => {
                                 <button onClick={() => handleLevelClickAndHideForm("Średni")}>
                                     Średni
                                 </button>
-                                <button
-                                    onClick={() => handleLevelClickAndHideForm("Zaawansowany")}
-                                >
+                                <button onClick={() => handleLevelClickAndHideForm("Zaawansowany")}>
                                     Zaawansowany
                                 </button>
                             </div>
-                            <div className="exercise_result">
-                                <div className="trening_list center-table">
-                                    {exerciseSets.map((exerciseSet, index) => {
-                                        if (selectedLevel === "Początkowy" && index === 0) {
-                                            return (
-                                                <div className="exercise_result" key={index}>
-                                                    <h2 style={{ color: "white" }}>
-                                                        Zestawy ćwiczeń dla poziomu: {selectedLevel}
-                                                    </h2>
-                                                    <h2 style={{ color: "aqua" }}>Zestaw {index + 1}</h2>
-                                                    <table className="trening_list">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Nr</th>
-                                                                <th>Ćwiczenie</th>
-                                                                <th>Liczba powtórzeń</th>
-                                                                <th>Przerwa</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {exerciseSet.map((exercise, index) => (
-                                                                <tr key={index}>
-                                                                    <td>{index + 1}</td>
-                                                                    <td>{exercise.exercise}</td>
-                                                                    <td>{exercise.repetitions}</td>
-                                                                    <td>{exercise.breakTime}</td>
-                                                                </tr>
-                                                            ))}
-                                                        </tbody>
-                                                    </table>
-                                                    <button>Usuń zestaw</button>
-                                                </div>
-                                            );
-                                        } else if (selectedLevel === "Średni" && index === 1) {
-                                            return (
-                                                <div className="exercise_result" key={index}>
-                                                    <h2 style={{ color: "white" }}>
-                                                        Zestawy ćwiczeń dla poziomu: {selectedLevel}
-                                                    </h2>
-                                                    <h2 style={{ color: "aqua" }}>Zestaw {index + 1}</h2>
-                                                    <table className="trening_list">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Nr</th>
-                                                                <th>Ćwiczenie</th>
-                                                                <th>Liczba powtórzeń</th>
-                                                                <th>Przerwa</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {exerciseSet.map((exercise, index) => (
-                                                                <tr key={index}>
-                                                                    <td>{index + 1}</td>
-                                                                    <td>{exercise.exercise}</td>
-                                                                    <td>{exercise.repetitions}</td>
-                                                                    <td>{exercise.breakTime}</td>
-                                                                </tr>
-                                                            ))}
-                                                        </tbody>
-                                                    </table>
-                                                    <button>Usuń zestaw</button>
-                                                </div>
-                                            );
-                                        } else if (selectedLevel === "Zaawansowany" && index >= 2) {
-                                            return (
-                                                <div className="exercise_result" key={index}>
-                                                    <h2 style={{ color: "white" }}>
-                                                        Zestawy ćwiczeń dla poziomu: {selectedLevel}
-                                                    </h2>
-                                                    <h2 style={{ color: "aqua" }}>Zestaw {index + 1}</h2>
-                                                    <table className="trening_list">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Nr</th>
-                                                                <th>Ćwiczenie</th>
-                                                                <th>Liczba powtórzeń</th>
-                                                                <th>Przerwa</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {exerciseSet.map((exercise, index) => (
-                                                                <tr key={index}>
-                                                                    <td>{index + 1}</td>
-                                                                    <td>{exercise.exercise}</td>
-                                                                    <td>{exercise.repetitions}</td>
-                                                                    <td>{exercise.breakTime}</td>
-                                                                </tr>
-                                                            ))}
-                                                        </tbody>
-                                                    </table>
-                                                    <button>Usuń zestaw</button>
-                                                </div>
-                                            );
-                                        }
-                                    })}
-
+                            {exerciseSets.map((exerciseSet, index) => {
+                                if (
+                                    (selectedLevel === "Początkowy" && index === 0) ||
+                                    (selectedLevel === "Średni" && index === 1) ||
+                                    (selectedLevel === "Zaawansowany" && index >= 2)
+                                ) {
+                                    return (
+                                        <div className="exercise_result" key={index}>
+                                            <h2 style={{ color: "white" }}>
+                                                Zestawy ćwiczeń dla poziomu: {selectedLevel}
+                                            </h2>
+                                            <h2 style={{ color: "aqua" }}>Zestaw {index + 1}</h2>
+                                            <table className="trening_list">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nr</th>
+                                                        <th>Ćwiczenie</th>
+                                                        <th>Liczba powtórzeń</th>
+                                                        <th>Przerwa</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {exerciseSet.map((exercise, index) => (
+                                                        <tr key={index}>
+                                                            <td>{index + 1}</td>
+                                                            <td>{exercise.exercise}</td>
+                                                            <td>{exercise.repetitions}</td>
+                                                            <td>{exercise.breakTime}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                            <button>Usuń zestaw</button>
+                                        </div>
+                                    );
+                                }
+                                return null;
+                            })}
                                     <br />
                                     {!isButtonClicked && (
                                         <button className="own_exercise_button" onClick={showForm}>
@@ -264,8 +177,6 @@ const ExerciseBase = props => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
             </section>
         </div>
     );

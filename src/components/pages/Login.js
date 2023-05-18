@@ -14,7 +14,7 @@ const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.post("/login", { username, password }, {
+        axios.post("http://localhost:5000/login", { username, password }, {
             headers: {
                 "Content-Type": "application/json",
             }
@@ -61,7 +61,7 @@ const Login = () => {
                         </div>
                         <button type="submit">Zaloguj się</button>
                         <div className="register">
-                            <p>Nie mam konta. <NavLink to="/registration"><a>Stwórz konto</a></NavLink></p>
+                            <p>Nie mam konta. <NavLink to="/registration">Stwórz konto</NavLink></p>
                         </div>
                     </form>
                 </div>

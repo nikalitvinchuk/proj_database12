@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const checkSession = async () => {
-    const res = await axios.get("/session");
+    const res = await axios.get("http://localhost:5000/session");
     console.log(res.data);
     return res.data.loggedIn;
 };
@@ -24,11 +24,11 @@ const withAuth = (Component) => {
         console.log(isLoggedIn)
         if (isLoggedIn != null) {
             if (!isLoggedIn) {
-                console.log("NIE UDA£O SIE ZALOGOWAÆ")
+                console.log("NIE UDAï¿½O SIE ZALOGOWAï¿½")
                 navigate("/login")
                 return false;
             } else {
-                console.log("UDA£O SIÊ ZALOGOWAÆ")
+                console.log("UDAï¿½O SIï¿½ ZALOGOWAï¿½")
             }
         }
 
