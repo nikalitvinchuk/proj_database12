@@ -1,7 +1,7 @@
 const express = require('express');
 const db = require('../db');
-const tableRouter = express.Router();
-tableRouter.get('/', (req, res) => {
+const tablesRouter = express.Router();
+tablesRouter.get('/', (req, res) => {
     const sql = "SHOW TABLES";
     db.query(sql, (err, result) => {
         if (err) {
@@ -14,4 +14,4 @@ tableRouter.get('/', (req, res) => {
     });
 });
 
-module.exports = tableRouter;
+module.exports = tablesRouter;

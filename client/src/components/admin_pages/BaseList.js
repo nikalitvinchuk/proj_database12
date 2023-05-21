@@ -3,12 +3,14 @@ import Header from '../pages/Header';
 
 const BaseList = () => {
     const [users, setUsers] = useState([]);
+    const [tables, setTables] = useState([]);
 
     useEffect(() => {
         fetch('/baseList')
             .then((response) => response.json())
             .then((data) => {
                 setUsers(data.users);
+                setTables(data.tables);
             });
     }, []);
 
@@ -19,9 +21,11 @@ const BaseList = () => {
                 <div className="container text-center">
                     <div className="row justify-content-center">
                         <div className="col-md-6 col-lg-8 mb-3">
-                            <h1 style={{ marginTop: '40px' }}>BaseList</h1>
-                            <select style={{ width: '340px', height: '50px' }}>
-                                <option>Baza PZTZ</option>
+                            <h1 style={{ marginTop: '40px' }}>Table List</h1>
+                            <select style={{ width: '340px', height: '50px' }}>         
+                                {tables.map((table) => (
+                                    <option key={table}>{table}</option>
+                                ))}
                             </select>
                             <br />
                             <button style={{ width: '340px', height: '50px' }}>Wyświetl</button>
