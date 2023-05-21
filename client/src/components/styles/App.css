@@ -424,4 +424,16 @@ textarea {
     -webkit-background-clip: text;
     color: transparent;
 }
+.BLResult {
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+.bl_table {
+    margin-top: 20px;
+}
+.bl_table td, .bl_table tr {
+    border: 1px solid white;
+    width: 700px;
+}
 
