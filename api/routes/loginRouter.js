@@ -49,10 +49,12 @@ loginRouter.post('/', (req, res) => {
             session[key] = {
                 user_id: user.id_user,
             }
+            
+        console.log(session[key])
+        session.isAdmin = user.isAdmin;
 
-            console.log(session[key])
-
-      res.json({ success: true });
+        res.json({ success: true });
+        console.log('isAdmin:', user.isAdmin);
     });
   });
 });

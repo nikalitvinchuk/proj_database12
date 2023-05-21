@@ -55,13 +55,17 @@ app.use('/blog', blogRouter);
 app.use('/email', emailRouter);
 //app.use('/exercises', exercisesRouter);
 //app.use('/exercise-sets', exerciseSetsRouter);
-
 app.get('/session', (req, res) => {
   if (session[req.cookies.random_login_key]) {
     return res.json({ loggedIn: true });
   } else {
     return res.json({ loggedIn: false });
   }
+});
+app.get('/api/isAdmin', (req, res) => {
+    const isAdmin = session.isAdmin;
+    res.json({ isAdmin });
+    console.log("Odczytano", isAdmin);
 });
 
 app.get('/logout', (req, res) => {

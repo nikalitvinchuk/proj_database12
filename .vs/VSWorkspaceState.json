@@ -2,8 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\api",
-    "\\client"
+    "\\api\\routes",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\components",
+    "\\client\\src\\components\\admin_pages",
+    "\\client\\src\\components\\pages"
   ],
-  "SelectedNode": "\\api",
+  "SelectedNode": "\\api\\package.json",
   "PreviewInSolutionExplorer": false
 }

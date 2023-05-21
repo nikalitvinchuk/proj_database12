@@ -19,6 +19,7 @@ import ExerciseBase from "./components/pages/ExerciseBase";
 import LocationBase from "./components/pages/LocationBase";
 import Useful from "./components/pages/Useful";
 import Blog from "./components/pages/Blog";
+import BaseList from "./components/admin_pages/BaseList";
 
 // Pobieranie elementu DOM
 const root = document.getElementById('root');
@@ -41,7 +42,8 @@ const AppWrapper = () => {
                         <Route path="/locationBase" element={<LocationBase />} />
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/useful" element={<Useful />} />
-                        <Route path="/login" element={<Login />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/admin" element={<BaseList/>}/>
                 </Routes>
             </Router>
         </React.StrictMode>
