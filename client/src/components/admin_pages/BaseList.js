@@ -4,6 +4,8 @@ import Header from '../pages/Header';
 const BaseList = () => {
     const [users, setUsers] = useState([]);
     const [tables, setTables] = useState([]);
+    const [selectedTable, setSelectedTable] = useState('');
+    const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
         fetch('/baseList')
@@ -13,7 +15,21 @@ const BaseList = () => {
                 setTables(data.tables);
             });
     }, []);
-
+    const handleTableChange = (event) => {
+        const selectedTable = event.target.value;
+        setSelectedTable(selectedTable);
+        console.log('zmiana stanu - wybrano inną tabele');
+        console.log({ selectedTable });
+    };
+    const handleDisplayClick = () => {
+        if (selectedTable) {
+            fetch(`/baseList/${selectedTable}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    setTableData(data.tableData);
+                });
+        }
+    };
     return (
         <div>
             <Header />
@@ -22,7 +38,12 @@ const BaseList = () => {
                     <div className="row justify-content-center">
                         <div className="col-md-6 col-lg-8 mb-3">
                             <h1 style={{ marginTop: '40px' }}>Table List</h1>
-                            <select style={{ width: '340px', height: '50px' }}>         
+                            <select
+                                style={{ width: '340px', height: '50px' }}
+                                value={selectedTable}
+                                onChange={handleTableChange}
+                            >  
+                                
                                 {tables.map((table) => (
                                     <option key={table}>{table}</option>
                                 ))}

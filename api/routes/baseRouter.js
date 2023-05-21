@@ -20,7 +20,7 @@ baseRouter.get('/', (req, res) => {
 
             const users = result;
             res.json({ tables, users });
-            console.log('Odczytano u¿ytkowników');
+            console.log('Odczytano u¿ytkowników:');
         });
     });
 });
