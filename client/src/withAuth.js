@@ -3,40 +3,50 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const checkSession = async () => {
-    const res = await axios.get("http://localhost:5000/session");
-    console.log(res.data);
-    return res.data.loggedIn;
+    try {
+        const res = await axios.get("http://localhost:5000/session", { withCredentials: true });
+        return res.data.loggedIn;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
 };
 
 const withAuth = (Component) => {
-    const AuthenticatedComponent = (props) => {
-        const navigate = useNavigate();
-        const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const AuthenticatedComponent = (props) => {
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(null);
 
-        console.log("test");
-        useEffect(() => {
-            const checkAuth = async () => {
-                const loggedIn = await checkSession();
-                setIsLoggedIn(loggedIn);
-            };
-            checkAuth();
-        }, []);
-        console.log(isLoggedIn)
-        if (isLoggedIn != null) {
-            if (!isLoggedIn) {
-                console.log("NIE UDA�O SIE ZALOGOWA�")
-                navigate("/login")
-                return false;
-            } else {
-                console.log("UDA�O SI� ZALOGOWA�")
-            }
-        }
-
-        return <Component {...props} />;
-
+    const checkAuth = async () => {
+      const loggedIn = await checkSession();
+      setIsLoggedIn(loggedIn);
+      if (!loggedIn) {
+        console.log("NIE UDAŁO SIĘ ZALOGOWAĆ");
+        navigate("/login");
+      } else {
+        console.log("UDAŁO SIĘ ZALOGOWAĆ");
+      }
     };
 
-    return AuthenticatedComponent;
+    useEffect(() => {
+      checkAuth();
+    }, [checkAuth]);
+
+    useEffect(() => {
+      const handleLocationChange = () => {
+        checkAuth();
+      };
+
+      window.addEventListener("popstate", handleLocationChange);
+      return () => {
+        window.removeEventListener("popstate", handleLocationChange);
+      };
+    }, []);
+
+    return <Component {...props} />;
+  };
+
+  return AuthenticatedComponent;
 };
 
 export default withAuth;

@@ -7,7 +7,7 @@ const Account = () => {
     const [user, setUser] = useState({});
 
     useEffect(() => {
-        axios.get('/user')
+        axios.get('/prof')
             .then(response => {
                 setUser(response.data);
             })

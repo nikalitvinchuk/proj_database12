@@ -1,6 +1,19 @@
 const express = require('express');
 const db = require('../db');
 const bcrypt = require('bcrypt');
+const session = require('express-session');
+
+function generateRandomString() {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let randomString = '';
+
+  for (let i = 0; i < 25; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      randomString += characters.charAt(randomIndex);
+  }
+
+  return randomString;
+}
 
 const loginRouter = express.Router();
 
@@ -30,7 +43,14 @@ loginRouter.post('/', (req, res) => {
         return res.json({ success: false, message: 'Invalid username or password' });
       }
 
-      // ... res.cookie, session, etc.
+      var key = generateRandomString()
+
+            res.cookie('random_login_key', key);
+            session[key] = {
+                user_id: user.id_user,
+            }
+
+            console.log(session[key])
 
       res.json({ success: true });
     });

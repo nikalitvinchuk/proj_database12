@@ -6,7 +6,6 @@ var logger = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const db = require('./db');
 
 const randomTipRouter = require('./routes/randomTipRouter');
 const loginRouter = require('./routes/loginRouter');
@@ -19,6 +18,13 @@ const emailRouter = require('./routes/emailRouter');
 
 var app = express();
 
+const corsOptions = {
+  origin: 'http://localhost:3000', // Zastąp tym adresem URL twojego front-endu
+  credentials: true, // Włącz przesyłanie cookies i uwierzytelnianie
+};
+
+app.use(cors(corsOptions));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -28,17 +34,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/random-tip', randomTipRouter);
-app.use('/login', loginRouter);
-app.use('/register', registerRouter);
-app.use('/profile', profileRouter);
-app.use('/blog', blogRouter);
-app.use('/email', emailRouter);
-//app.use('/exercises', exercisesRouter);
-//app.use('/exercise-sets', exerciseSetsRouter);
-
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -48,9 +43,18 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    expires: 5,
+    maxAge: 5000
   }
 }));
+
+app.use('/random-tip', randomTipRouter);
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
+app.use('/profile', profileRouter);
+app.use('/blog', blogRouter);
+app.use('/email', emailRouter);
+//app.use('/exercises', exercisesRouter);
+//app.use('/exercise-sets', exerciseSetsRouter);
 
 app.get('/session', (req, res) => {
   if (session[req.cookies.random_login_key]) {
