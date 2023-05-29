@@ -13,6 +13,8 @@ const registerRouter = require('./routes/registerRouter');
 const profileRouter = require('./routes/profileRouter');
 const blogRouter = require('./routes/blogRouter');
 const emailRouter = require('./routes/emailRouter');
+const baseRouter = require('./routes/baseRouter');
+//const tablesRouter = require('./routes/tablesRouter');
 //const exercisesRouter = require('./routes/exercisesRouter');
 //const exerciseSetsRouter = require('./routes/exerciseSetsRouter');
 
@@ -53,9 +55,10 @@ app.use('/register', registerRouter);
 app.use('/profile', profileRouter);
 app.use('/blog', blogRouter);
 app.use('/email', emailRouter);
+app.use('/baseList', baseRouter);
+//app.use('/tablesList', tablesRouter);
 //app.use('/exercises', exercisesRouter);
 //app.use('/exercise-sets', exerciseSetsRouter);
-
 app.get('/session', (req, res) => {
   if (session[req.cookies.random_login_key]) {
     return res.json({ loggedIn: true });
@@ -63,6 +66,12 @@ app.get('/session', (req, res) => {
     return res.json({ loggedIn: false });
   }
 });
+app.get('/api/isAdmin', (req, res) => {
+    const isAdmin = session.isAdmin;
+    res.json({ isAdmin });
+    console.log("Odczytano", isAdmin);
+});
+
 
 app.get('/logout', (req, res) => {
   delete session[req.cookies.random_login_key];

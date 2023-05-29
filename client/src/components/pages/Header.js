@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from '../styles/logo.png';
 import "../styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
 
-const Header = ({ isAdmin }) => {
+const Header = () => {
+    const [isAdmin, setIsAdmin] = useState(false);
+    useEffect(() => {
+        fetch('/api/isAdmin')
+            .then(response => response.json())
+            .then(data => setIsAdmin(data.isAdmin))
+            .catch(error => console.error(error));
+    }, []);
+
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -63,13 +71,18 @@ const Header = ({ isAdmin }) => {
                             <li className="nav-item">
                                 <NavLink to="/account" className="nav-link"><i className="fa fa-heart-o" aria-hidden="true"></i> Moje konto</NavLink>
                             </li>
+
                             {isAdmin ? (
                                 <li className="nav-item">
-                                    <NavLink to="admin" className="nav-link">
-                                        <i className="fa fa-heart-o" aria-hidden="true"></i> Bazy danych
+                                    <NavLink to="/admin" className="nav-link">
+                                        <i className="fa fa-heart-o" aria-hidden="true"></i> Baza
+                                        danych
                                     </NavLink>
                                 </li>
-                            ) : null}
+                            ) : (
+                                ""
+                            )};
+
                         </ul>
                         <form action="#" className="d-flex" id="wyloguj">
                             <button type="button" onClick={handleLogout} className="btn-outline-dark">Wyloguj</button>
