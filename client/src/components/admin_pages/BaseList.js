@@ -14,11 +14,9 @@ const BaseList = () => {
       .then(data => {
         setUsers(data.users);
         setTables(data.tables);
+        setHeaders(Object.keys(data.users[0])); // Aktualizacja stanu nagłówków na podstawie nazw kolumn
       });
-    if (users.length > 0) {
-      setHeaders(Object.keys(users[0])); // Aktualizacja stanu nagłówków na podstawie nazw kolumn
-    }
-  }, [users]);
+  }, []);
   const handleTableChange = event => {
     const selectedTable = event.target.value;
     setSelectedTable(selectedTable);
@@ -27,7 +25,7 @@ const BaseList = () => {
   };
   const handleDisplayClick = () => {
     if (selectedTable) {
-      fetch(`/baseList/${selectedTable}`)
+      fetch(`/baseList`)
         .then(response => response.json())
         .then(data => {
           setTableData(data.tableData);
@@ -69,19 +67,26 @@ const BaseList = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {users.map(user => (
-                        <tr key={user.id}>
-                          <td>{user.id}</td>   
-                          <td>{user.imie}</td>
-                          <td>{user.nazwisko}</td>
-                          <td>{user.wiek}</td>
-                          <td>{user.email}</td>
-                          <td>{user.login}</td>
-                          <td>brak podglądu </td>
-                          <td>{user.isAdmin ? "Tak" : "Nie"}</td>
-                        </tr>
-                      ))}
-                    </tbody>
+                    {users.map(user => (
+                    <tr key={user.id}>
+                        {headers.map(header => (
+                        <td key={`${user.id}-${header}`}>
+                            {header === "password" ? (
+                            "brak podglądu"
+                            ) : header === "isAdmin" ? (
+                            user[header] === 0 ? (
+                                "Nie"
+                            ) : (
+                                "Tak"
+                            )
+                            ) : (
+                            user[header]
+                            )}
+                        </td>
+                        ))}
+                    </tr>
+                    ))}
+                </tbody>
                   </table>
                 ) : (
                   <div>Brak danych użytkowników</div>
