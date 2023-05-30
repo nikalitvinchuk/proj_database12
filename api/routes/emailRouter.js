@@ -1,49 +1,35 @@
 const express = require('express');
-const AWS = require('aws-sdk');
-
+const nodemailer = require('nodemailer');
 require('dotenv').config();
-
-AWS.config.update({
-  accessKeyId: 'YOUR_ACCESS_KEY_ID',
-  secretAccessKey: 'YOUR_SECRET_ACCESS_KEY',
-  region: 'eu-central-1'
-});
-
-const ses = new AWS.SES({ apiVersion: '2010-12-01' });
 
 const emailRouter = express.Router();
 
-emailRouter.post('/', (req, res) => {
+emailRouter.post('/', async (req, res) => {
   const { title, email, message } = req.body;
 
-  const params = {
-    Destination: {
-      ToAddresses: ['michal.m1234@interia.pl']
-    },
-    Message: {
-      Body: {
-        Text: {
-          Charset: "UTF-8",
-          Data: `Author: ${email}, Message: ${message}`
-        }
-      },
-      Subject: {
-        Charset: 'UTF-8',
-        Data: `${title}`
+  try {
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      auth: {
+        user: "rickie.satterfield@ethereal.email",
+        pass: "p4jMJBNyZbvJVnNugz",
       }
-    },
-    Source: 'mmordarski@int.pl',
-  };
+    });
 
-  ses.sendEmail(params, (err, data) => {
-    if (err) {
-      console.log(err, err.stack);
-      res.status(500).send('Error sending email');
-    } else {
-      console.log(data);
-      res.send('Email sent successfully');
-    }
-  });
+    let info = transporter.sendMail({
+      from: email,
+      to:"pztz@info.pl",
+      subject: title,
+      text: message,
+    });
+
+    console.log(info.messageId);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
 });
 
 module.exports = emailRouter;
