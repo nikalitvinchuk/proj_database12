@@ -4,6 +4,7 @@
     "\\api",
     "\\api\\public",
     "\\api\\public\\stylesheets",
+    "\\api\\routes",
     "\\client",
     "\\client\\src",
     "\\client\\src\\components",
@@ -11,6 +12,6 @@
     "\\client\\src\\components\\pages",
     "\\client\\src\\components\\styles"
   ],
-  "SelectedNode": "\\api\\app.js",
+  "SelectedNode": "\\client\\src\\components\\admin_pages\\BaseList.js",
   "PreviewInSolutionExplorer": false
 }
