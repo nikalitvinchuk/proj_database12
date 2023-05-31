@@ -431,9 +431,11 @@ textarea {
 }
 .bl_table {
     margin-top: 20px;
+    width: 1000px;
 }
 .bl_table td, .bl_table tr {
     border: 1px solid white;
-    width: 700px;
+    padding: 5px;
+    
 }
 

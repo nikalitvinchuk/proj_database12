@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Header from "../pages/Header";
 
 const BaseList = () => {
-  const [users, setUsers] = useState([]);
   const [tables, setTables] = useState([]);
   const [selectedTable, setSelectedTable] = useState("");
   const [tableData, setTableData] = useState([]);
@@ -84,6 +83,9 @@ const BaseList = () => {
                                 )}
                             </td>
                           ))}
+                              <td>
+                                  <button onClick={() => handleDeleteRow(index)} style={{width: "90px"} }>Usuń</button>
+                              </td>
                         </tr>
                       ))}
                     </tbody>
