@@ -5,6 +5,9 @@ import axios from 'axios';
 
 const Account = () => {
     const [user, setUser] = useState({});
+    const [weight, setWeight] = useState('');
+    const [height, setHeight] = useState('');
+    const [editing, setEditing] = useState(false);
 
     useEffect(() => {
         axios.get('/prof')
@@ -15,6 +18,35 @@ const Account = () => {
                 console.error(error);
             });
     }, []);
+
+    const handleEdit = () => {
+        setEditing(true);
+    };
+
+    const handleSave = () => {
+        // Wysyłanie danych do bazy danych
+        axios.post('/update-profile', { weight, height })
+            .then(response => {
+                // Aktualizacja danych w komponencie
+                setUser({ ...user, weight, height });
+                setEditing(false);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
+    const handleCancel = () => {
+        setEditing(false);
+    };
+
+    const handleChangeWeight = event => {
+        setWeight(event.target.value);
+    };
+
+    const handleChangeHeight = event => {
+        setHeight(event.target.value);
+    };
 
     return (
         <div>
@@ -36,9 +68,38 @@ const Account = () => {
                             <div className="inputbox_acc">
                                 <label>Zainteresowania: {user.interests}</label>
                             </div>
-                            <div className="inputbox_acc">
-                                <label>Typ konta: {user.accountType}</label>
-                            </div>
+                            {!editing && (
+                                <div className="inputbox_acc">
+                                    <button onClick={handleEdit}>Dodatkowe dane</button>
+                                </div>
+                            )}
+                            {editing && (
+                                <div className="inputbox_acc">    
+                                    <input
+                                        type="text"
+                                        value={weight}
+                                        onChange={handleChangeWeight}
+                                        placeholder="Waga"
+                                    />
+                                </div>
+                            )}
+                            {editing && (
+                                <div className="inputbox_acc">
+                                    <input
+                                        type="text"
+                                        value={height}
+                                        onChange={handleChangeHeight}
+                                        placeholder="Wzrost"
+                                    />
+                                </div>
+
+                            )}
+                            {editing && (
+                                <div className="inputbox_acc">
+                                    <button onClick={handleSave}>Zapisz</button>
+                                    <button onClick={handleCancel}>Anuluj</button>
+                                </div>
+                            )}
                         </form>
                     </div>
                 </div>
