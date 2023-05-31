@@ -12,33 +12,33 @@ const BaseList = () => {
     fetch(`/baseList`)
       .then(response => response.json())
       .then(data => {
-        setUsers(data.users);
         setTables(data.tables);
-        setHeaders(Object.keys(data.users[0])); // Aktualizacja stanu nagłówków na podstawie nazw kolumn
+        setHeaders([]); // Clear existing headers
       });
   }, []);
+
   const handleTableChange = event => {
     const selectedTable = event.target.value;
     setSelectedTable(selectedTable);
     console.log("zmiana stanu - wybrano inną tabele");
     console.log({ selectedTable });
   };
+
   const handleDisplayClick = () => {
     if (selectedTable) {
-      fetch(`/baseList`)
+      fetch(`/baseList/${selectedTable}`) // Pass selectedTable as a route parameter
         .then(response => response.json())
         .then(data => {
+          setHeaders(Object.keys(data.tableData[0])); // Set headers based on the selected table's columns
           setTableData(data.tableData);
         });
     }
   };
+
   return (
     <div>
       <Header />
-      <section
-        id="hero"
-        className="d-flex align-items-center justify-content-center"
-      >
+      <section id="hero" className="d-flex align-items-center justify-content-center">
         <div className="container text-center">
           <div className="row justify-content-center">
             <div className="col-md-6 col-lg-8 mb-3">
@@ -53,11 +53,11 @@ const BaseList = () => {
                 ))}
               </select>
               <br />
-              <button style={{ width: "340px", height: "50px" }}>
+              <button style={{ width: "340px", height: "50px" }} onClick={handleDisplayClick}>
                 Wyświetl
               </button>
               <div className="BLResult">
-                {users && users.length > 0 ? (
+                {tableData && tableData.length > 0 ? (
                   <table className="bl_table text-center">
                     <thead>
                       <tr>
@@ -67,29 +67,29 @@ const BaseList = () => {
                       </tr>
                     </thead>
                     <tbody>
-                    {users.map(user => (
-                    <tr key={user.id}>
-                        {headers.map(header => (
-                        <td key={`${user.id}-${header}`}>
-                            {header === "password" ? (
-                            "brak podglądu"
-                            ) : header === "isAdmin" ? (
-                            user[header] === 0 ? (
-                                "Nie"
-                            ) : (
-                                "Tak"
-                            )
-                            ) : (
-                            user[header]
-                            )}
-                        </td>
-                        ))}
-                    </tr>
-                    ))}
-                </tbody>
+                      {tableData.map((row, index) => (
+                        <tr key={index}>
+                          {headers.map(header => (
+                            <td key={`${index}-${header}`}>
+                               {header === "password" ? (
+                                  "brak podglądu"
+                                ) : header === "isAdmin" ? (
+                                  row[header] === 0 ? (
+                                    "Nie"
+                                  ) : (
+                                    "Tak"
+                                  )
+                                ) : (
+                                  row[header] === null ? "null" : row[header]
+                                )}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
                   </table>
                 ) : (
-                  <div>Brak danych użytkowników</div>
+                  <div>Wybierz tabelę i kliknij przycisk "wyświetl"</div>
                 )}
               </div>
             </div>
