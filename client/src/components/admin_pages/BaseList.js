@@ -12,7 +12,7 @@ const BaseList = () => {
       .then(response => response.json())
       .then(data => {
         setTables(data.tables);
-        setHeaders([]); // Clear existing headers
+        setHeaders([]); 
       });
   }, []);
 
@@ -32,7 +32,27 @@ const BaseList = () => {
           setTableData(data.tableData);
         });
     }
-  };
+    };
+    const handleDeleteRow = (index) => {
+        const updatedTableData = [...tableData];
+        const deletedRow = updatedTableData.splice(index, 1)[0]; // Usuwa wybrany rekord z tablicy tableData i zapisuje go jako deletedRow
+        setTableData(updatedTableData);
+
+        fetch(`/baseList/${selectedTable}/${deletedRow.id}`, { method: "DELETE" })
+            .then(response => {
+                if (response.ok) {
+                    // Usunięcie rekordu z bazy danych powiodło się
+                    console.log("Rekord został pomyślnie usunięty z bazy danych.");
+                } else {
+                    // Obsługa przypadku, gdy usuwanie rekordu nie powiodło się
+                    console.log("Wystąpił błąd podczas usuwania rekordu z bazy danych.");
+                }
+            })
+            .catch(error => {
+                // Obsługa błędu zapytania
+                console.error("Wystąpił błąd podczas wykonywania zapytania DELETE:", error);
+            });
+    };
 
   return (
     <div>
@@ -83,9 +103,11 @@ const BaseList = () => {
                                 )}
                             </td>
                           ))}
-                              <td>
-                                  <button onClick={() => handleDeleteRow(index)} style={{width: "90px"} }>Usuń</button>
-                              </td>
+                              {row["isAdmin"] !== 1 && (
+                                  <td>
+                                      <button onClick={() => handleDeleteRow(index)} style={{ width: "90px" }}>Usuń</button>
+                                  </td>
+                              )}
                         </tr>
                       ))}
                     </tbody>

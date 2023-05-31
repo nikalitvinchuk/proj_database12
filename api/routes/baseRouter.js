@@ -33,5 +33,20 @@ baseRouter.get("/:table", (req, res) => {
     res.json({ tableData });
   });
 });
+baseRouter.delete("/:table/:id", (req, res) => {
+    const selectedTable = req.params.table;
+    const id = req.params.id;
+    const sqlDeleteRecord = `DELETE FROM ${selectedTable} WHERE id = ?`;
+
+    db.query(sqlDeleteRecord, id, (err, result) => {
+        if (err) {
+            return res.json({ success: false, error: err });
+        }
+
+        console.log("Rekord zosta³ pomyœlnie usuniêty z bazy danych.");
+
+        res.json({ success: true });
+    });
+});
 
 module.exports = baseRouter;
