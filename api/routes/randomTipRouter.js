@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('../db');
+const session = require('express-session');
 
 const randomTipRouter = express.Router();
 

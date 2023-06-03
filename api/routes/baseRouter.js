@@ -31,7 +31,7 @@ baseRouter.get("/:table", (req, res) => {
             res.json({ tables, users });
             console.log('Odczytano u�ytkownik�w:');
         });
-    });
 });
+
 
 module.exports = baseRouter;

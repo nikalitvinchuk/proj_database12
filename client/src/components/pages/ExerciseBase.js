@@ -12,12 +12,14 @@ const ExerciseBase = (props) => {
     const [series, setSeries] = useState("");
     const [selectedExerciseSet, setSelectedExerciseSet] = useState(null);
     const [exerciseSets, setExerciseSets] = useState([]);
+    const [exercises, setExercises] = useState([]);
     const [addedExercises, setAddedExercises] = useState([]);
 
     useEffect(() => {
         axios
             .get("/exercise-sets")
             .then((response) => {
+                console.log(response.data)
                 setExerciseSets(response.data);
             })
             .catch((error) => {
@@ -43,8 +45,15 @@ const ExerciseBase = (props) => {
 
     const handleExerciseSetChange = (event) => {
         const selectedId = event.target.value;
-        const selectedSet = exerciseSets.find((exerciseSet) => exerciseSet.id === selectedId);
-        setSelectedExerciseSet(selectedSet);
+        console.log(selectedId)
+        axios.post("/get_exercises", {id: selectedId})
+        .then((response) => {
+            console.log(response);
+            setExercises(response.data)
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     };
 
     const handleSubmit = (event) => {
@@ -124,15 +133,15 @@ const ExerciseBase = (props) => {
                                 value={selectedExerciseSet ? selectedExerciseSet.id : ""}
                             >
                                 <option value="">Wybierz zestaw</option>
-                                {exerciseSets.map(exerciseSet => (
+                                {exerciseSets.map((exerciseSet) => (
                                     <option key={exerciseSet.id} value={exerciseSet.id}>
-                                        {exerciseSet.name}
+                                    {exerciseSet.id}
                                     </option>
                                 ))}
                             </select>
                             <br />
                             <br />
-                            {selectedExerciseSet && (
+                            {exercises.length > 0 ? (
                                 <table>
                                     <thead>
                                         <tr>
@@ -144,15 +153,20 @@ const ExerciseBase = (props) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>{selectedExerciseSet.id}</td>
-                                            <td>{selectedExerciseSet.name}</td>
-                                            <td>{selectedExerciseSet.repetitions}</td>
-                                            <td>{selectedExerciseSet.break}</td>
-                                        </tr>
+                                            {exercises.map((addedExercise, index) => (
+                                                <tr key={index}>
+                                                    <td className="id">{addedExercise.id}</td>
+                                                    <td className="name">{addedExercise.name}</td>
+                                                    <td className="reps">{addedExercise.reps}</td>
+                                                    <td className="breakTime">{addedExercise.break}</td>
+                                                    <td className="series">{addedExercise.series}</td>
+                                                </tr>
+                                            ))}
+                                      
+
                                     </tbody>
                                 </table>
-                            )}
+                            ): "Puste"}
                             <br />
                             {!isButtonClicked && (
                                 <button className="own_exercise_button" onClick={showForm}>

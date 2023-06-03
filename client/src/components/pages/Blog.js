@@ -22,6 +22,7 @@ const Blog = (props) => {
           axios.get('/blog'),
           expandedPost && axios.get('/blog/comments', { params: { postId: expandedPost.id } })
         ]);
+
         setPosts(postsResponse.data);
         setComments(commentsResponse?.data || []);
       } catch (error) {
@@ -51,6 +52,7 @@ const Blog = (props) => {
 
   const handleCommentSubmit = (event) => {
     event.preventDefault();
+
     axios.post(`/blog/comments`, { postId: expandedPost.id, comment: newComment })
       .then(response => {
         console.log(response.data);
@@ -203,14 +205,23 @@ const Blog = (props) => {
                           onChange={(event) => setContent(event.target.value)}
                         ></textarea>{" "}
                         <br />
-                        <button type="button" className="post_buttn" onClick={handleAddBlog}>
-                          Zatwierdź
-                        </button>{" "}
-                        <br />
+                        <button
+                          type="submit"
+                          onClick={handleAddBlog}
+                          style={{
+                            backgroundColor: "rgba(49, 88, 65, 0.534)",
+                            color: "white"
+                          }}
+                        >
+                          Dodaj
+                        </button>
                         <button
                           type="button"
-                          className="post_buttn"
                           onClick={hidePostButton}
+                          style={{
+                            backgroundColor: "rgba(167, 42, 42, 0.534)",
+                            color: "white"
+                          }}
                         >
                           Anuluj
                         </button>

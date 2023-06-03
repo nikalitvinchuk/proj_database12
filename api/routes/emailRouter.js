@@ -4,6 +4,8 @@ require('dotenv').config();
 
 const emailRouter = express.Router();
 
+//https://ethereal.email/
+
 emailRouter.post('/', async (req, res) => {
   const { title, email, message } = req.body;
 
@@ -14,8 +16,8 @@ emailRouter.post('/', async (req, res) => {
       host: 'smtp.ethereal.email',
       port: 587,
       auth: {
-        user: "rickie.satterfield@ethereal.email",
-        pass: "p4jMJBNyZbvJVnNugz",
+        user: process.env.EMAIL_LOG,
+        pass: process.env.EMAIL_PSWD,
       }
     });
 

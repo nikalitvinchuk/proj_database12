@@ -16,6 +16,7 @@ const emailRouter = require('./routes/emailRouter');
 const baseRouter = require('./routes/baseRouter');
 const commentsRouter = require('./routes/commentsRouter');
 const exerciseRouter = require('./routes/exerciseRouter');
+const db = require('./db');
 
 var app = express();
 
@@ -55,6 +56,17 @@ app.use('/blog', commentsRouter);
 app.use('/email', emailRouter);
 app.use('/baseList', baseRouter);
 app.use('/exercise-sets', exerciseRouter);
+
+
+app.post('/get_exercises', (req, res) => {
+  console.log("TRUE",req.body.id)
+  var sql = 'SELECT * FROM exercises WHERE id_set = '+req.body.id;
+  console.log(req.body.id)
+  db.query(sql, (err, result) => {
+    res.json(result);
+  });
+  
+});
 
 // Inne endpointy
 

@@ -22,39 +22,27 @@ function generateRandomName() {
 // Pobieranie listy zestawów ćwiczeń z bazy danych
 
 router.get('/', (req, res) => {
-  /*
-  const sql = 'SELECT * FROM exercise_sets';
+  const userId = session[req.cookies.random_login_key].user_id;
+  const sql = 'SELECT * FROM exercise_sets WHERE autor = '+userId;
   db.query(sql, (err, result) => {
     if (err) {
       console.error('Błąd podczas pobierania listy zestawów ćwiczeń:', err);
       res.status(500).json({ error: 'Błąd podczas pobierania listy zestawów ćwiczeń.' });
     } else {
-      // Przetwarzanie ciągu wartości oddzielonych separatorem na tablicę wartości
-      const exerciseSets = result.map((exerciseSet) => ({
-        ...exerciseSet,
-        exercises: exerciseSet.exerciseSet.split(';').map((exercise) => {
-          const [name, repetitions, breakTime, series] = exercise.split(';');
-          return {
-            name,
-            repetitions,
-            break: breakTime,
-            series
-          };
-        })
-      }));
-      res.json(exerciseSets);
+      res.json(result);
     }
   });
-  */
+  
 });
+
 
 // Dodawanie zestawu ćwiczeń do bazy danych
 
 router.post('/add', (req, res) => {
-  const exerciseSet = req.body.exerciseSet;
+  var exerciseSet = req.body.exerciseSet;
   const userId = session[req.cookies.random_login_key].user_id;
 
-  console.log(req.body.exerciseSet);
+  console.log(exerciseSet);
 
   // Sprawdź, czy przekazano dane zestawu ćwiczeń
 
@@ -80,14 +68,14 @@ router.post('/add', (req, res) => {
     const setId = result.insertId; // Id nowego rekordu w tabeli exercise_sets
     console.log('setId:', setId);
 
-    // Dodaj ćwiczenia do zestawu ćwiczeń
+      //   // Dodaj ćwiczenia do zestawu ćwiczeń
 
     for (let i = 0; i < exerciseSet.length; i++) {
       const exercise = exerciseSet[i];
-      const name = exercise[0];
-      const reps = exercise[1];
-      const breakTime = exercise[2];
-      const series = exercise[3];
+      const name = exercise.name;
+      const reps = exercise.reps;
+      const breakTime = exercise.break;
+      const series = exercise.series;
       console.log(name, reps, breakTime, series);
       const exerciseSql = 'INSERT INTO exercises (id_set, name, reps, break, series) VALUES (?, ?, ?, ?, ?)';
       db.query(exerciseSql, [setId, name, reps, breakTime, series], (err, result) => {
@@ -98,8 +86,12 @@ router.post('/add', (req, res) => {
       });
     }
 
-    res.status(200).json({ success: 'Zestaw ćwiczeń został dodany.' });
-  });
+  })
+
+
+
+  //   res.status(200).json({ success: 'Zestaw ćwiczeń został dodany.' });
+  // });
 });
 
 module.exports = router;

@@ -8,5 +8,5 @@ const db = mysql.createConnection({
     database: "pztz",
     port: "3306"
 });
-;
+
 module.exports = db
