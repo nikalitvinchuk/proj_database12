@@ -13,19 +13,19 @@ const Useful = () => {
             .then(data => {
                 if (data.tresc) {
                     setRandomTip(data.tresc);
-                    // Zapisujemy wybran¹ wskazówkê w pamiêci przegl¹darki
+                    // Zapisujemy wybranï¿½ wskazï¿½wkï¿½ w pamiï¿½ci przeglï¿½darki
                     localStorage.setItem('selectedTip', data.tresc);
 
                     setTimeout(() => {
                         setIsButtonDisabled(false);
                         setRandomTip("");
-                        // Usuwamy wybran¹ wskazówkê z pamiêci przegl¹darki
+                        // Usuwamy wybranï¿½ wskazï¿½wkï¿½ z pamiï¿½ci przeglï¿½darki
                         localStorage.removeItem('selectedTip');
                     }, 24 * 60 * 60 * 1000);
                 }
             })
             .catch(error => {
-                console.error('Wyst¹pi³ b³¹d', error);
+                console.error('Wystï¿½piï¿½ bï¿½ï¿½d', error);
                 setIsButtonDisabled(false);
             });
     };
@@ -37,7 +37,7 @@ const Useful = () => {
                 <div className="container text-center">
                     <div className="row justify-content-center">
                         <div className="col-md-6 col-lg-8 mb-3">
-                            <h1 className="nagl1">Wylosuj wskazówkê na dziœ</h1>
+                            <h1 className="nagl1">Wylosuj wskazÃ³wkÄ™ na dnia</h1>
                             <button className="button_tips" onClick={handleRandomTip} disabled={isButtonDisabled}>Losuj</button>
                             <div className="result_useful">
                                 {randomTip && <p className="p_useful">{randomTip}</p>}

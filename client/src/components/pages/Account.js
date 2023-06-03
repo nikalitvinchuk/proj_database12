@@ -7,7 +7,7 @@ const Account = () => {
     const [user, setUser] = useState({});
 
     useEffect(() => {
-        axios.get('/prof')
+        axios.get('/profile')
             .then(response => {
                 setUser(response.data);
             })
@@ -31,13 +31,10 @@ const Account = () => {
                                 <label>Nazwisko: {user.lastName}</label>
                             </div>
                             <div className="inputbox_acc">
+                                <label>Wiek: {user.age}</label>
+                            </div>
+                            <div className="inputbox_acc">
                                 <label>Email: {user.email}</label>
-                            </div>
-                            <div className="inputbox_acc">
-                                <label>Zainteresowania: {user.interests}</label>
-                            </div>
-                            <div className="inputbox_acc">
-                                <label>Typ konta: {user.accountType}</label>
                             </div>
                         </form>
                     </div>

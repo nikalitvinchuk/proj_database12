@@ -39,7 +39,7 @@ const Header = () => {
 
 
     return (
-        <header id="header" className="fixed-top">
+        <header id="header" className="element">
             <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#000' }}>
                 <div className="container">
                     <NavLink to="/" exact={true} className="navbar-brand"><img src={Logo} alt="" style={{ width: '55%' }} /></NavLink>

@@ -6,26 +6,15 @@ import withAuth from '../../withAuth';
 const ExerciseBase = (props) => {
     const [formVisible, setFormVisible] = useState(props.formVisible);
     const [isButtonClicked, setIsButtonClicked] = useState(false);
-    const [selectedLevel, setSelectedLevel] = useState(
-        props.defaultLevel || "Początkowy"
-    );
     const [exercise, setExercise] = useState("");
-    const [reps, setReps] = useState(0);
-    const [exercises, setExercises] = useState([]);
+    const [repetitions, setRepetitions] = useState("");
+    const [breakTime, setBreakTime] = useState("");
+    const [series, setSeries] = useState("");
+    const [selectedExerciseSet, setSelectedExerciseSet] = useState(null);
     const [exerciseSets, setExerciseSets] = useState([]);
+    const [addedExercises, setAddedExercises] = useState([]);
 
     useEffect(() => {
-        // pobieranie listy ćwiczeń z bazy danych
-        axios
-            .get("/exercises")
-            .then((response) => {
-                setExercises(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-        // pobieranie listy zestawów z bazy danych
         axios
             .get("/exercise-sets")
             .then((response) => {
@@ -36,36 +25,87 @@ const ExerciseBase = (props) => {
             });
     }, []);
 
-    const handleLevelClick = (level) => {
-        setSelectedLevel(level);
-    };
-
     const handleExerciseChange = (event) => {
         setExercise(event.target.value);
     };
 
-    const handleRepsChange = (event) => {
-        setReps(event.target.value);
+    const handleRepetitionsChange = (event) => {
+        setRepetitions(event.target.value);
+    };
+
+    const handleBreakTimeChange = (event) => {
+        setBreakTime(event.target.value);
+    };
+
+    const handleSeriesChange = (event) => {
+        setSeries(event.target.value);
+    };
+
+    const handleExerciseSetChange = (event) => {
+        const selectedId = event.target.value;
+        const selectedSet = exerciseSets.find((exerciseSet) => exerciseSet.id === selectedId);
+        setSelectedExerciseSet(selectedSet);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        const newExerciseSet = {
+            name: exercise,
+            repetitions: repetitions,
+            break: breakTime,
+            series: series
+        };
+
+        setAddedExercises([...addedExercises, newExerciseSet]);
+
+        setExercise("");
+        setRepetitions("");
+        setBreakTime("");
+        setSeries("");
     };
+
+    const handleConfirm = (event) => {
+        event.preventDefault();
+        var tds = document.querySelectorAll("form table tbody tr")
+        var datas = []
+
+        for (let index = 0; index < tds.length; index++) {
+            var x = tds[index];
+            console.log(x.getElementsByClassName("name"))
+            datas.push({
+                name: x.getElementsByClassName("name")[0].innerHTML,
+                reps: x.getElementsByClassName("reps")[0].innerHTML,
+                break: x.getElementsByClassName("breakTime")[0].innerHTML,
+                series: x.getElementsByClassName("series")[0].innerHTML
+            })
+        }
+        console.log(datas)
+        axios.post("/exercise-sets/add", {exerciseSet: datas})
+        .then((response) => {
+            console.log(response.data);
+            setSelectedExerciseSet(response.data);
+            setAddedExercises([]);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+    
 
     const showForm = () => {
         setFormVisible(true);
         setIsButtonClicked(true);
+        setSelectedExerciseSet(null);
     };
 
     const hideForm = () => {
         setFormVisible(false);
         setIsButtonClicked(false);
-    };
-
-    // obsługa 2 x onClick dla przycisków poziomu zaawansowania
-    const handleLevelClickAndHideForm = level => {
-        handleLevelClick(level);
-        hideForm();
+        setExercise("");
+        setRepetitions("");
+        setBreakTime("");
+        setSeries("");
     };
 
     return (
@@ -75,108 +115,134 @@ const ExerciseBase = (props) => {
                 <div className="container text-center">
                     <div className="row justify-content-center">
                         <div className="col-md-6 col-lg-8 mb-3">
-                            <h1 className="nagl1"> Wybierz poziom </h1> <br />
-                            <div className="exercise_main">
-                                <button onClick={() => handleLevelClickAndHideForm("Początkowy")}>
-                                    Początkowy
+                            <h1 className="nagl1">Zestawy ćwiczeń</h1> <br />
+                            <label htmlFor="exercise_set_select">Wybierz zestaw:</label>
+                            <select
+                                id="exercise_set_select"
+                                className="exercise_set_select"
+                                onChange={handleExerciseSetChange}
+                                value={selectedExerciseSet ? selectedExerciseSet.id : ""}
+                            >
+                                <option value="">Wybierz zestaw</option>
+                                {exerciseSets.map(exerciseSet => (
+                                    <option key={exerciseSet.id} value={exerciseSet.id}>
+                                        {exerciseSet.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <br />
+                            <br />
+                            {selectedExerciseSet && (
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Nr</th>
+                                            <th>Ćwiczenie</th>
+                                            <th>Liczba powtórzeń</th>
+                                            <th>Przerwa</th>
+                                            <th>Serie</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{selectedExerciseSet.id}</td>
+                                            <td>{selectedExerciseSet.name}</td>
+                                            <td>{selectedExerciseSet.repetitions}</td>
+                                            <td>{selectedExerciseSet.break}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            )}
+                            <br />
+                            {!isButtonClicked && (
+                                <button className="own_exercise_button" onClick={showForm}>
+                                    Dodaj zestaw
                                 </button>
-                                <button onClick={() => handleLevelClickAndHideForm("Średni")}>
-                                    Średni
-                                </button>
-                                <button onClick={() => handleLevelClickAndHideForm("Zaawansowany")}>
-                                    Zaawansowany
-                                </button>
-                            </div>
-                            {exerciseSets.map((exerciseSet, index) => {
-                                if (
-                                    (selectedLevel === "Początkowy" && index === 0) ||
-                                    (selectedLevel === "Średni" && index === 1) ||
-                                    (selectedLevel === "Zaawansowany" && index >= 2)
-                                ) {
-                                    return (
-                                        <div className="exercise_result" key={index}>
-                                            <h2 style={{ color: "white" }}>
-                                                Zestawy ćwiczeń dla poziomu: {selectedLevel}
-                                            </h2>
-                                            <h2 style={{ color: "aqua" }}>Zestaw {index + 1}</h2>
-                                            <table className="trening_list">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Nr</th>
-                                                        <th>Ćwiczenie</th>
-                                                        <th>Liczba powtórzeń</th>
-                                                        <th>Przerwa</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {exerciseSet.map((exercise, index) => (
-                                                        <tr key={index}>
-                                                            <td>{index + 1}</td>
-                                                            <td>{exercise.exercise}</td>
-                                                            <td>{exercise.repetitions}</td>
-                                                            <td>{exercise.breakTime}</td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                            <button>Usuń zestaw</button>
-                                        </div>
-                                    );
-                                }
-                                return null;
-                            })}
+                            )}
+                            <br />
+                            {formVisible && (
+                                <form onSubmit={handleSubmit}>
+                                    <label htmlFor="exercise_input">Ćwiczenie:</label><br />
+                                    <input
+                                        type="text"
+                                        id="exercise_input"
+                                        value={exercise}
+                                        onChange={handleExerciseChange}
+                                    />
                                     <br />
-                                    {!isButtonClicked && (
-                                        <button className="own_exercise_button" onClick={showForm}>
-                                            Dodaj własny zestaw
-                                        </button>
-                                    )}
+                                    <label htmlFor="repetitions_input">Liczba powtórzeń:</label><br />
+                                    <input
+                                        type="text"
+                                        id="repetitions_input"
+                                        value={repetitions}
+                                        onChange={handleRepetitionsChange}
+                                    />
                                     <br />
-                                    {formVisible && (
-                                        <form onSubmit={handleSubmit}>
-                                            <label htmlFor="exercise_select">
-                                                Wybierz 5 kolejnych ćwiczeń:
-                                            </label>
-                                            <select
-                                                id="exercise_select"
-                                                className="exercise_select"
-                                                onChange={handleExerciseChange}
-                                                value={exercise}
-                                            >
-                                                <option value="">Wybierz ćwiczenie</option>
-                                                {exercises.map(exercise => (
-                                                    <option key={exercise.id} value={exercise.name}>
-                                                        {exercise.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                            <label htmlFor="reps_input">Liczba powtórzeń:</label> <br />
-                                            <input
-                                                id="reps_input"
-                                                type="number"
-                                                min="1"
-                                                value={reps}
-                                                onChange={handleRepsChange}
-                                            />
-                                            <br /> <br />
-                                            <button
-                                                type="button"
-                                                style={{ backgroundColor: "rgba(49, 88, 65, 0.534)" }}
-                                            >
-                                                Dodaj kolejne ćwiczenie
-                                            </button>
-                                            <button
-                                                type="button"
-                                                style={{ backgroundColor: "rgba(221, 40, 34, 0.534)" }}
-                                                onClick={hideForm}
-                                            >
-                                                Anuluj
-                                            </button>
-                                        </form>
-                                    )}
+                                    <label htmlFor="break_input">Przerwa:</label><br />
+                                    <input
+                                        type="text"
+                                        id="break_input"
+                                        value={breakTime}
+                                        onChange={handleBreakTimeChange}
+                                    />
+                                    <br />
+                                    <label htmlFor="series_input">Serie:</label><br />
+                                    <input
+                                        type="text"
+                                        id="series_input"
+                                        value={series}
+                                        onChange={handleSeriesChange}
+                                    />
+                                    <br />
+                                    <br />
+                                    <button
+                                        type="submit"
+                                        style={{ backgroundColor: "rgba(49, 88, 65, 0.534)" }}
+                                    >
+                                        Dodaj kolejne ćwiczenie
+                                    </button>
+                                    <button
+                                        type="button"
+                                        style={{ backgroundColor: "rgba(221, 40, 34, 0.534)" }}
+                                        onClick={hideForm}
+                                    >
+                                        Anuluj
+                                    </button>
+                                </form>
+                            )}
+
+                            {formVisible && addedExercises.length > 0 && (
+                                <div>
+                                    <h3>Dodane ćwiczenia:</h3>
+                                    <form onSubmit={handleConfirm}>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Ćwiczenie</th>
+                                                <th>Liczba powtórzeń</th>
+                                                <th>Przerwa</th>
+                                                <th>Serie</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {addedExercises.map((addedExercise, index) => (
+                                                <tr key={index}>
+                                                    <td className="name">{addedExercise.name}</td>
+                                                    <td className="reps">{addedExercise.repetitions}</td>
+                                                    <td className="breakTime">{addedExercise.break}</td>
+                                                    <td className="series">{addedExercise.series}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                    
+                                        <input type="submit" value="Zatwierdź" />
+                                    </form>
                                 </div>
-                            </div>
+                            )}
                         </div>
+                    </div>
+                </div>
             </section>
         </div>
     );

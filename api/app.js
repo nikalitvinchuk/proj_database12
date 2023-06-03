@@ -14,22 +14,17 @@ const profileRouter = require('./routes/profileRouter');
 const blogRouter = require('./routes/blogRouter');
 const emailRouter = require('./routes/emailRouter');
 const baseRouter = require('./routes/baseRouter');
-//const tablesRouter = require('./routes/tablesRouter');
-//const exercisesRouter = require('./routes/exercisesRouter');
-//const exerciseSetsRouter = require('./routes/exerciseSetsRouter');
+const commentsRouter = require('./routes/commentsRouter');
+const exerciseRouter = require('./routes/exerciseRouter');
 
 var app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // Zastąp tym adresem URL twojego front-endu
-  credentials: true, // Włącz przesyłanie cookies i uwierzytelnianie
+  origin: 'http://localhost:3000',
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -49,16 +44,20 @@ app.use(session({
   }
 }));
 
+// Routery
+
 app.use('/random-tip', randomTipRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/profile', profileRouter);
 app.use('/blog', blogRouter);
+app.use('/blog', commentsRouter);
 app.use('/email', emailRouter);
 app.use('/baseList', baseRouter);
-//app.use('/tablesList', tablesRouter);
-//app.use('/exercises', exercisesRouter);
-//app.use('/exercise-sets', exerciseSetsRouter);
+app.use('/exercise-sets', exerciseRouter);
+
+// Inne endpointy
+
 app.get('/session', (req, res) => {
   if (session[req.cookies.random_login_key]) {
     return res.json({ loggedIn: true });
@@ -66,12 +65,12 @@ app.get('/session', (req, res) => {
     return res.json({ loggedIn: false });
   }
 });
+
 app.get('/api/isAdmin', (req, res) => {
     const isAdmin = session.isAdmin;
     res.json({ isAdmin });
     console.log("Odczytano", isAdmin);
 });
-
 
 app.get('/logout', (req, res) => {
   delete session[req.cookies.random_login_key];
@@ -79,18 +78,16 @@ app.get('/logout', (req, res) => {
   res.json(true);
 });
 
-// catch 404 and forward to error handler
+// Obsługa błędów
+
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });

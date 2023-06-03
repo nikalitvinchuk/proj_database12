@@ -8,6 +8,8 @@ emailRouter.post('/', async (req, res) => {
   const { title, email, message } = req.body;
 
   try {
+    // Utworzenie transporteru dla serwera SMTP
+
     let transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,
@@ -17,9 +19,11 @@ emailRouter.post('/', async (req, res) => {
       }
     });
 
+    // Wysłanie wiadomości e-mail
+
     let info = transporter.sendMail({
       from: email,
-      to:"pztz@info.pl",
+      to: "pztz@info.pl",
       subject: title,
       text: message,
     });
