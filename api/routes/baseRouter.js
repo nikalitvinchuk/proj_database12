@@ -1,20 +1,27 @@
-const express = require('express');
-const db = require('../db');
+const express = require("express");
+const db = require("../db");
 const baseRouter = express.Router();
 
-baseRouter.get('/', (req, res) => {
-    const sqlTables = "SHOW TABLES";
-    const sqlUsers = "SELECT * FROM users";
+baseRouter.get("/", (req, res) => {
+  const sqlTables = "SHOW TABLES";
 
-    // Zapytanie SQL pobierające nazwy tabel z bazy danych
-    db.query(sqlTables, (err, result) => {
-        if (err) {
-            return res.json({ success: false, error: err });
-        }
+  db.query(sqlTables, (err, result) => {
+    if (err) {
+      return res.json({ success: false, error: err });
+    }
 
-        const tables = result.map((table) => table[`Tables_in_${db.config.database}`]);
+    const tables = result.map(
+      table => table[`Tables_in_${db.config.database}`]
+    );
 
-        // Zapytanie SQL pobierające informacje o użytkownikach
+    res.json({ tables });
+  });
+});
+
+baseRouter.get("/:table", (req, res) => {
+  const selectedTable = req.params.table;
+  const sqlTableData = `SELECT * FROM ${selectedTable}`;
+
         db.query(sqlUsers, (err, result) => {
             if (err) {
                 return res.json({ success: false, error: err });
@@ -22,7 +29,7 @@ baseRouter.get('/', (req, res) => {
 
             const users = result;
             res.json({ tables, users });
-            console.log('Odczytano użytkowników:', users);
+            console.log('Odczytano u�ytkownik�w:');
         });
     });
 });

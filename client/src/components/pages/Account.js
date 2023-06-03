@@ -5,6 +5,9 @@ import axios from 'axios';
 
 const Account = () => {
     const [user, setUser] = useState({});
+    const [weight, setWeight] = useState('');
+    const [height, setHeight] = useState('');
+    const [editing, setEditing] = useState(false);
 
     useEffect(() => {
         axios.get('/profile')
@@ -15,6 +18,35 @@ const Account = () => {
                 console.error(error);
             });
     }, []);
+
+    const handleEdit = () => {
+        setEditing(true);
+    };
+
+    const handleSave = () => {
+        // Wysyłanie danych do bazy danych
+        axios.post('/update-profile', { weight, height })
+            .then(response => {
+                // Aktualizacja danych w komponencie
+                setUser({ ...user, weight, height });
+                setEditing(false);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
+    const handleCancel = () => {
+        setEditing(false);
+    };
+
+    const handleChangeWeight = event => {
+        setWeight(event.target.value);
+    };
+
+    const handleChangeHeight = event => {
+        setHeight(event.target.value);
+    };
 
     return (
         <div>
